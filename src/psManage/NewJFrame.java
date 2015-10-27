@@ -6,6 +6,7 @@
 package psManage;
 
 import com.itextpdf.text.DocumentException;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -145,36 +146,51 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // 保存ファイルの選択
-
-    JFileChooser filechooser = new JFileChooser();
-
-    int selected = filechooser.showSaveDialog(this);
-    if (selected == JFileChooser.APPROVE_OPTION){
-      File file = filechooser.getSelectedFile();
-      fileDir = (file.getPath());
-    }else if (selected == JFileChooser.CANCEL_OPTION){
-      System.out.println("キャンセルされました");
-    }else if (selected == JFileChooser.ERROR_OPTION){
-      System.out.println("エラー又は取消しがありました");
-    }
-
-
-        try {
-            // 作成開始:
-            StructSheet.createPdf(
-                    this.mainTitle.getText(),
-                    this.subTitle.getText(),
-                    this.url.getText(),
-                    this.userName.getText(),
-                    this.comment.getText(),
-                    this.passCode.getText(),
-                    this.fileDir);
+        try {                                      
+            // 保存ファイルの選択
+            
+            JFileChooser filechooser = new JFileChooser();
+            
+            int selected = filechooser.showSaveDialog(this);
+            if (selected == JFileChooser.APPROVE_OPTION){
+                File file = filechooser.getSelectedFile();
+                fileDir = (file.getPath());
+            }else if (selected == JFileChooser.CANCEL_OPTION){
+                System.out.println("キャンセルされました");
+            }else if (selected == JFileChooser.ERROR_OPTION){
+                System.out.println("エラー又は取消しがありました");
+            }
+            
+            
+            try {
+                // 作成開始:
+                StructSheet.createPdf(
+                        this.mainTitle.getText(),
+                        this.subTitle.getText(),
+                        this.url.getText(),
+                        this.userName.getText(),
+                        this.comment.getText(),
+                        this.passCode.getText(),
+                        this.fileDir);
+            } catch (IOException ex) {
+                Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DocumentException ex) {
+                Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            File file = new File(this.fileDir);
+            Desktop desktop = Desktop.getDesktop();
+            //desktop.open(file);
+            desktop.print(file);
+            Thread.sleep(7000);
+            file.delete();
+            
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
+        } catch (InterruptedException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void calcPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcPassMouseClicked

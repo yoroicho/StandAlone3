@@ -129,19 +129,25 @@ public class StructSheet {
         document.add(new Paragraph(url));
         code128.setCode(url);
         code128.setFont(bf);
+        code128.setX(1);
         document.add(code128.createImageWithBarcode(cb, null, null));
 
         document.add(new Paragraph("USER"));
-        document.add(new Paragraph(userName));
-        code128.setCode(userName);
-        code128.setFont(bf);
-        document.add(code128.createImageWithBarcode(cb, null, null));
+        if (userName.length() != 0) {
+            document.add(new Paragraph(userName));
+            code128.setCode(userName);
+            code128.setFont(bf);
+            code128.setBarHeight(40f);
+            document.add(code128.createImageWithBarcode(cb, null, null));
+        }
 
         document.add(new Paragraph("CODE"));
-        document.add(new Paragraph(passCode));
-        code128.setCode(passCode);
-        code128.setFont(bf);
-        document.add(code128.createImageWithBarcode(cb, null, null));
+        if (passCode.length() != 0) {
+            document.add(new Paragraph(passCode));
+            code128.setCode(passCode);
+            code128.setFont(bf);
+            document.add(code128.createImageWithBarcode(cb, null, null));
+        }
 
         document.add(new Paragraph("摘要"));
         document.add(new Paragraph(comment));
