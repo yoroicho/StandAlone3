@@ -100,13 +100,13 @@ public class StructSheet {
             //String scanType,
             String comment,
             //String thisPassCode,
-            String passCode
+            String passCode,
+            String fileDir
     ) throws IOException, DocumentException {
-        String filename = "barcordSheet.pdf";
         // step 1
         Document document = new Document(PageSize.A4, 200, 50, 15, 15);
         // step 2
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filename));
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileDir));
         // step 3
         document.open();
         // step 4
