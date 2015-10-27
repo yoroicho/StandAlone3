@@ -5,6 +5,11 @@
  */
 package psManage;
 
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author 00499
@@ -32,26 +37,48 @@ public class NewJFrame extends javax.swing.JFrame {
         url = new javax.swing.JTextField();
         userName = new javax.swing.JTextField();
         scanType = new javax.swing.JComboBox();
-        comment = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        commentScrollPane = new javax.swing.JScrollPane();
+        comment = new javax.swing.JTextArea();
         thisPassCode = new javax.swing.JTextField();
-        randomType = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        randomType = new javax.swing.JComboBox();
+        passLength = new javax.swing.JComboBox();
+        randomText = new javax.swing.JTextField();
+        passCode = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        calcPass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        scanType.setEditable(true);
         scanType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ランダム分割", "順分割", "循環", "使い捨て" }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        comment.setViewportView(jTextArea1);
+        comment.setColumns(20);
+        comment.setRows(5);
+        commentScrollPane.setViewportView(comment);
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Letters", "Alphanumeric", "Ascii", "Alphabetic", "Numeric" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        randomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letters", "Alphanumeric", "Ascii", "Alphabetic", "Numeric" }));
+
+        passLength.setEditable(true);
+        passLength.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        jButton1.setText("OK");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
         });
-        randomType.setViewportView(jList1);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        calcPass.setText("自動取得");
+        calcPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calcPassMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,15 +88,25 @@ public class NewJFrame extends javax.swing.JFrame {
             .addComponent(subTitle)
             .addComponent(url)
             .addComponent(userName)
+            .addComponent(commentScrollPane)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(thisPassCode, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scanType, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(randomType, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(passLength, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(randomText)
+            .addComponent(thisPassCode)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(scanType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(randomType, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
-            .addComponent(comment)
+                        .addGap(230, 230, 230)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(passCode, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(calcPass)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,18 +120,58 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(scanType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(thisPassCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(randomType, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
-                .addComponent(comment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(scanType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(randomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(randomText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(thisPassCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calcPass))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(commentScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try {
+            // 作成開始:
+            StructSheet.createPdf(
+                    this.mainTitle.getText(),
+                    this.subTitle.getText(),
+                    this.url.getText(),
+                    this.userName.getText(),
+                    this.comment.getText(),
+                    this.passCode.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void calcPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcPassMouseClicked
+        // パスワード文字列の計算を呼び出し、表示
+        this.passCode.setText(
+            StructSheet.getPassCode(
+                this.randomType.getSelectedItem().toString(),
+                this.randomText.getText(),
+                Integer.parseInt(this.passLength.getSelectedItem().toString()))
+        );
+    }//GEN-LAST:event_calcPassMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,11 +209,15 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane comment;
-    private javax.swing.JList jList1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton calcPass;
+    private javax.swing.JTextArea comment;
+    private javax.swing.JScrollPane commentScrollPane;
+    private javax.swing.JButton jButton1;
     private javax.swing.JTextField mainTitle;
-    private javax.swing.JScrollPane randomType;
+    private javax.swing.JTextField passCode;
+    private javax.swing.JComboBox passLength;
+    private javax.swing.JTextField randomText;
+    private javax.swing.JComboBox randomType;
     private javax.swing.JComboBox scanType;
     private javax.swing.JTextField subTitle;
     private javax.swing.JTextField thisPassCode;
