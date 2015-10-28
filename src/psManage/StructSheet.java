@@ -54,7 +54,6 @@ public class StructSheet {
      * @param thisPassCode
      * @param passCode
      */
-
     public static String getPassCode(String randomType, String randomText, int passLength) {
         if (randomType == null) {
             System.out.println("Null!");
@@ -92,7 +91,7 @@ public class StructSheet {
             String fileDir
     ) throws IOException, DocumentException {
         // step 1
-        Document document = new Document(PageSize.A4, 50, 50, 15, 15);
+        Document document = new Document(PageSize.A4, 50, 50, 50, 35);
         // step 2
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileDir));
         // step 3
@@ -109,22 +108,23 @@ public class StructSheet {
         pdfPTable.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
         pdfPTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
         pdfPTable.getDefaultCell().setFixedHeight(150);
-        
+
         pdfPTable.setWidthPercentage(100f);
 
         int pdfPTableWidth[] = {10, 90};
         pdfPTable.setWidths(pdfPTableWidth);
 
         PdfPCell cell_1_1 = new PdfPCell(new Paragraph("件名", ipaGothic));
-        //cell_1_1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cell_1_1.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cell_1_1.setHorizontalAlignment(Element.ALIGN_CENTER);
-
+cell_1_1.setFixedHeight(50);
         PdfPCell cell_1_2 = new PdfPCell(new Paragraph(mainTitle, ipaGothic));
 
         PdfPCell cell_2_1 = new PdfPCell(new Paragraph("種類", ipaGothic));
-        //cell_2_1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell_2_1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cell_2_1.setHorizontalAlignment(Element.ALIGN_CENTER);
         PdfPCell cell_2_2 = new PdfPCell(new Paragraph(subTitle, ipaGothic));
-
+cell_2_2.setFixedHeight(50);
         pdfPTable.addCell(cell_1_1);
         pdfPTable.addCell(cell_1_2);
         pdfPTable.addCell(cell_2_1);
@@ -159,6 +159,7 @@ public class StructSheet {
         PdfPCell cellUserNameKey = new PdfPCell(new Paragraph("USER", ipaGothic));
         cellUserNameKey.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cellUserNameKey.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellUserNameKey.setFixedHeight(50);
         cellUserNameKey.setRowspan(2);
         pdfPTable.addCell(cellUserNameKey);
 
@@ -194,6 +195,7 @@ public class StructSheet {
         PdfPCell cellPassCodeValue = new PdfPCell(new Paragraph(passCodeA + passCodeB, ipaGothic));
         cellPassCodeValue.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cellPassCodeValue.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellPassCodeValue.setFixedHeight(50);
         pdfPTable.addCell(cellPassCodeValue);
 
         if (passCodeA.length() != 0) {
@@ -225,7 +227,7 @@ public class StructSheet {
             cellPassCodeB_Bc.setFixedHeight(80);
             pdfPTable.addCell(cellPassCodeB_Bc);
         } else {
-            PdfPCell cellPassCodeB_Bc = new PdfPCell(new Paragraph("", ipaGothic));
+            PdfPCell cellPassCodeB_Bc = new PdfPCell(new Paragraph("---", ipaGothic));
             cellPassCodeB_Bc.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cellPassCodeB_Bc.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellPassCodeB_Bc.setFixedHeight(80);
@@ -243,12 +245,11 @@ public class StructSheet {
         cellCommentValue.setFixedHeight(200);
         pdfPTable.addCell(cellCommentValue);
 
-                PdfPCell cellIssueKey = new PdfPCell(new Paragraph("発行", ipaGothic));
+        PdfPCell cellIssueKey = new PdfPCell(new Paragraph("発行", ipaGothic));
         cellIssueKey.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cellIssueKey.setHorizontalAlignment(Element.ALIGN_CENTER);
         pdfPTable.addCell(cellIssueKey);
 
-        
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         String strDate = sdf.format(cal.getTime());
@@ -257,17 +258,17 @@ public class StructSheet {
         cellIssueValue.setHorizontalAlignment(Element.ALIGN_CENTER);
         cellIssueValue.setFixedHeight(20);
         pdfPTable.addCell(cellIssueValue);
-        
+
         //表を文章に追加する
         document.add(pdfPTable);
         /*
 
-        // CODE 128
-        document.add(new Paragraph("件名 : " + mainTitle, ipaGothic));
-        document.add(new Paragraph("分類 : " + subTitle, ipaGothic));
-        document.add(new Paragraph("-------------------------------------------------------"));
-        document.add(new Paragraph("発行 " + strDate));
-        document.add(new Paragraph("-------------------------------------------------------"));
+         // CODE 128
+         document.add(new Paragraph("件名 : " + mainTitle, ipaGothic));
+         document.add(new Paragraph("分類 : " + subTitle, ipaGothic));
+         document.add(new Paragraph("-------------------------------------------------------"));
+         document.add(new Paragraph("発行 " + strDate));
+         document.add(new Paragraph("-------------------------------------------------------"));
 
 
          BaseFont bf = BaseFont.createFont(BaseFont.COURIER, BaseFont.WINANSI, BaseFont.EMBEDDED);
@@ -296,9 +297,9 @@ public class StructSheet {
          document.add(code128.createImageWithBarcode(cb, null, null));
          }
 
-        document.add(new Paragraph("摘要", ipaGothic));
-        document.add(new Paragraph(comment, ipaGothic));
-                         */
+         document.add(new Paragraph("摘要", ipaGothic));
+         document.add(new Paragraph(comment, ipaGothic));
+         */
         // step 5
         document.close();
     }
