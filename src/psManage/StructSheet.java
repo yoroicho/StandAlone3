@@ -91,7 +91,7 @@ public class StructSheet {
             String fileDir
     ) throws IOException, DocumentException {
         // step 1
-        Document document = new Document(PageSize.A4, 50, 50, 50, 35);
+        Document document = new Document(PageSize.A4, 60, 50, 50, 35);
         // step 2
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileDir));
         // step 3
@@ -117,14 +117,18 @@ public class StructSheet {
         PdfPCell cell_1_1 = new PdfPCell(new Paragraph("件名", ipaGothic));
         cell_1_1.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cell_1_1.setHorizontalAlignment(Element.ALIGN_CENTER);
-cell_1_1.setFixedHeight(50);
+        cell_1_1.setFixedHeight(50);
         PdfPCell cell_1_2 = new PdfPCell(new Paragraph(mainTitle, ipaGothic));
+        cell_1_2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cell_1_2.setHorizontalAlignment(Element.ALIGN_CENTER);
 
         PdfPCell cell_2_1 = new PdfPCell(new Paragraph("種類", ipaGothic));
         cell_2_1.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cell_2_1.setHorizontalAlignment(Element.ALIGN_CENTER);
         PdfPCell cell_2_2 = new PdfPCell(new Paragraph(subTitle, ipaGothic));
-cell_2_2.setFixedHeight(50);
+        cell_2_2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        cell_2_2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell_2_2.setFixedHeight(50);
         pdfPTable.addCell(cell_1_1);
         pdfPTable.addCell(cell_1_2);
         pdfPTable.addCell(cell_2_1);
@@ -139,33 +143,34 @@ cell_2_2.setFixedHeight(50);
         PdfPCell cellUrlValue = new PdfPCell(new Paragraph(url, ipaGothic));
         cellUrlValue.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cellUrlValue.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellUrlValue.setFixedHeight(50);
         pdfPTable.addCell(cellUrlValue);
 
         if (url.length() != 0) {
-            BarcodeQRCode qr = new BarcodeQRCode(url, 20, 20, null);
+            BarcodeQRCode qr = new BarcodeQRCode(url, 50, 50, null);
             PdfPCell cellUrlValueQr = new PdfPCell(qr.getImage());
             cellUrlValueQr.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cellUrlValueQr.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cellUrlValueQr.setFixedHeight(50);
+            cellUrlValueQr.setFixedHeight(80);
             pdfPTable.addCell(cellUrlValueQr);
         } else {
             PdfPCell cellUrlValueQr = new PdfPCell(new Paragraph("", ipaGothic));
             cellUrlValueQr.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cellUrlValueQr.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cellUrlValueQr.setFixedHeight(50);
+            cellUrlValueQr.setFixedHeight(80);
             pdfPTable.addCell(cellUrlValueQr);
         }
 
         PdfPCell cellUserNameKey = new PdfPCell(new Paragraph("USER", ipaGothic));
         cellUserNameKey.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cellUserNameKey.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cellUserNameKey.setFixedHeight(50);
         cellUserNameKey.setRowspan(2);
         pdfPTable.addCell(cellUserNameKey);
 
         PdfPCell cellUserNameValue = new PdfPCell(new Paragraph(userName, ipaGothic));
         cellUserNameValue.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cellUserNameValue.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellUserNameValue.setFixedHeight(30);
         pdfPTable.addCell(cellUserNameValue);
 
         if (userName.length() != 0) {
@@ -195,7 +200,7 @@ cell_2_2.setFixedHeight(50);
         PdfPCell cellPassCodeValue = new PdfPCell(new Paragraph(passCodeA + passCodeB, ipaGothic));
         cellPassCodeValue.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cellPassCodeValue.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cellPassCodeValue.setFixedHeight(50);
+        cellPassCodeValue.setFixedHeight(30);
         pdfPTable.addCell(cellPassCodeValue);
 
         if (passCodeA.length() != 0) {
@@ -242,7 +247,7 @@ cell_2_2.setFixedHeight(50);
         PdfPCell cellCommentValue = new PdfPCell(new Paragraph(comment, ipaGothic));
         cellCommentValue.setVerticalAlignment(Element.ALIGN_TOP);
         cellCommentValue.setHorizontalAlignment(Element.ALIGN_LEFT);
-        cellCommentValue.setFixedHeight(200);
+        cellCommentValue.setFixedHeight(150);
         pdfPTable.addCell(cellCommentValue);
 
         PdfPCell cellIssueKey = new PdfPCell(new Paragraph("発行", ipaGothic));

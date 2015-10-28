@@ -203,7 +203,7 @@ public class NewJFrame extends javax.swing.JFrame {
             
             File file = new File(this.fileDir);
             Desktop desktop = Desktop.getDesktop();
-                        Thread.sleep(7000);
+            Thread.sleep(2000);
             desktop.open(file);
             //desktop.print(file);
             Thread.sleep(7000);
