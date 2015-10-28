@@ -46,9 +46,11 @@ public class NewJFrame extends javax.swing.JFrame {
         randomType = new javax.swing.JComboBox();
         passLength = new javax.swing.JComboBox();
         randomText = new javax.swing.JTextField();
-        passCode = new javax.swing.JTextField();
+        passCodeA = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        calcPass = new javax.swing.JButton();
+        calcPassA = new javax.swing.JButton();
+        passCodeB = new javax.swing.JTextField();
+        calcPassB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,7 +61,7 @@ public class NewJFrame extends javax.swing.JFrame {
         comment.setRows(5);
         commentScrollPane.setViewportView(comment);
 
-        randomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Letters", "Alphanumeric", "Ascii", "Alphabetic", "Numeric" }));
+        randomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ascii", "Alphanumeric", "Alphabetic", "Numeric", "Letters" }));
 
         passLength.setEditable(true);
         passLength.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
@@ -76,10 +78,17 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        calcPass.setText("自動取得");
-        calcPass.addMouseListener(new java.awt.event.MouseAdapter() {
+        calcPassA.setText("自動取得");
+        calcPassA.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                calcPassMouseClicked(evt);
+                calcPassAMouseClicked(evt);
+            }
+        });
+
+        calcPassB.setText("自動取得");
+        calcPassB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calcPassBMouseClicked(evt);
             }
         });
 
@@ -106,9 +115,13 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGap(230, 230, 230)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(passCode, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(passCodeB, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passCodeA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(calcPass)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(calcPassA)
+                            .addComponent(calcPassB))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,20 +146,27 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(thisPassCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(calcPass))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(commentScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passCodeA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calcPassA))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passCodeB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calcPassB))
+                .addGap(17, 17, 17)
+                .addComponent(commentScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        try {                                      
+        
+
+        try {       
+                   /*
             // 保存ファイルの選択
             
             JFileChooser filechooser = new JFileChooser();
@@ -161,6 +181,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 System.out.println("エラー又は取消しがありました");
             }
             
+          */  
+            fileDir = "temp.pdf"; //残さないことを前提とする場合。
             
             try {
                 // 作成開始:
@@ -170,7 +192,8 @@ public class NewJFrame extends javax.swing.JFrame {
                         this.url.getText(),
                         this.userName.getText(),
                         this.comment.getText(),
-                        this.passCode.getText(),
+                        this.passCodeA.getText(),
+                        this.passCodeB.getText(),
                         this.fileDir);
             } catch (IOException ex) {
                 Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,19 +217,29 @@ public class NewJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void calcPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcPassMouseClicked
+    private void calcPassAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcPassAMouseClicked
         // パスワード文字列の計算を呼び出し、表示
-        this.passCode.setText(
+        this.passCodeA.setText(
             StructSheet.getPassCode(
                 this.randomType.getSelectedItem().toString(),
                 this.randomText.getText(),
                 Integer.parseInt(this.passLength.getSelectedItem().toString()))
         );
-    }//GEN-LAST:event_calcPassMouseClicked
+    }//GEN-LAST:event_calcPassAMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void calcPassBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcPassBMouseClicked
+                // パスワード文字列の計算を呼び出し、表示
+        this.passCodeB.setText(
+            StructSheet.getPassCode(
+                this.randomType.getSelectedItem().toString(),
+                this.randomText.getText(),
+                Integer.parseInt(this.passLength.getSelectedItem().toString()))
+        );
+    }//GEN-LAST:event_calcPassBMouseClicked
 
     /**
      * @param args the command line arguments
@@ -244,12 +277,14 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton calcPass;
+    private javax.swing.JButton calcPassA;
+    private javax.swing.JButton calcPassB;
     private javax.swing.JTextArea comment;
     private javax.swing.JScrollPane commentScrollPane;
     private javax.swing.JButton jButton1;
     private javax.swing.JTextField mainTitle;
-    private javax.swing.JTextField passCode;
+    private javax.swing.JTextField passCodeA;
+    private javax.swing.JTextField passCodeB;
     private javax.swing.JComboBox passLength;
     private javax.swing.JTextField randomText;
     private javax.swing.JComboBox randomType;

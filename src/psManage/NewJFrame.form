@@ -44,9 +44,15 @@
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="passCode" min="-2" pref="444" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="passCodeB" alignment="0" max="32767" attributes="0"/>
+                          <Component id="passCodeA" alignment="0" pref="444" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="calcPass" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="calcPassA" min="-2" max="-2" attributes="0"/>
+                          <Component id="calcPassB" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -76,14 +82,19 @@
               <Component id="thisPassCode" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="passCode" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="calcPass" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="passCodeA" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="calcPassA" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="commentScrollPane" min="-2" pref="157" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="passCodeB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="calcPassB" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <Component id="commentScrollPane" min="-2" pref="124" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <EmptySpace pref="60" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -131,11 +142,11 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="5">
-            <StringItem index="0" value="Letters"/>
+            <StringItem index="0" value="Ascii"/>
             <StringItem index="1" value="Alphanumeric"/>
-            <StringItem index="2" value="Ascii"/>
-            <StringItem index="3" value="Alphabetic"/>
-            <StringItem index="4" value="Numeric"/>
+            <StringItem index="2" value="Alphabetic"/>
+            <StringItem index="3" value="Numeric"/>
+            <StringItem index="4" value="Letters"/>
           </StringArray>
         </Property>
       </Properties>
@@ -163,7 +174,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="randomText">
     </Component>
-    <Component class="javax.swing.JTextField" name="passCode">
+    <Component class="javax.swing.JTextField" name="passCodeA">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
@@ -174,12 +185,22 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="calcPass">
+    <Component class="javax.swing.JButton" name="calcPassA">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x81ea;&#x52d5;&#x53d6;&#x5f97;"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="calcPassMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="calcPassAMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="passCodeB">
+    </Component>
+    <Component class="javax.swing.JButton" name="calcPassB">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x81ea;&#x52d5;&#x53d6;&#x5f97;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="calcPassBMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
