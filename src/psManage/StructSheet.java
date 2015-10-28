@@ -112,11 +112,15 @@ public class StructSheet {
         // step 4
         PdfContentByte cb = writer.getDirectContent();
 
+                Font ipaGothic = new Font(BaseFont.createFont("ipag.ttf",
+                BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+        
+        
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         String strDate = sdf.format(cal.getTime());
         // CODE 128
-        document.add(new Paragraph("件名 : " + mainTitle));
+        document.add(new Paragraph("件名 : " + mainTitle,ipaGothic));
         document.add(new Paragraph("分類 : " + subTitle));
         document.add(new Paragraph("-------------------------------------------------------"));
         document.add(new Paragraph("発行 " + strDate));
