@@ -122,7 +122,7 @@ public class StructSheet {
         cell_1_2.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cell_1_2.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-        PdfPCell cell_2_1 = new PdfPCell(new Paragraph("種類", ipaGothic));
+        PdfPCell cell_2_1 = new PdfPCell(new Paragraph("種別", ipaGothic));
         cell_2_1.setVerticalAlignment(Element.ALIGN_MIDDLE);
         cell_2_1.setHorizontalAlignment(Element.ALIGN_CENTER);
         PdfPCell cell_2_2 = new PdfPCell(new Paragraph(subTitle, ipaGothic));

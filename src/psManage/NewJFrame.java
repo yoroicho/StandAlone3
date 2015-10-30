@@ -97,24 +97,16 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         jButton1.setText("OK");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
         calcPassA.setText("自動取得");
-        calcPassA.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                calcPassAMouseClicked(evt);
-            }
-        });
-        calcPassA.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                calcPassAKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                calcPassAKeyTyped(evt);
+        calcPassA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcPassAActionPerformed(evt);
             }
         });
 
@@ -125,9 +117,9 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         calcPassB.setText("自動取得");
-        calcPassB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                calcPassBMouseClicked(evt);
+        calcPassB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcPassBActionPerformed(evt);
             }
         });
 
@@ -270,8 +262,58 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void randomTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_randomTypeItemStateChanged
+        passCodeA.setText(null);
+        passCodeB.setText(null);
+        if (randomType.getSelectedItem().toString().endsWith("Letters")) {
+            randomText.setEnabled(true);
+        } else {
+            randomText.setEnabled(false);
+        }
+    }//GEN-LAST:event_randomTypeItemStateChanged
 
+    private void passCodeACaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passCodeACaretUpdate
+        passCodeALength.setText(Integer.toString(passCodeA.getText().length()));
+        passCodeLengthTotal.setText(Integer.toString(passCodeA.getText().length() + passCodeB.getText().length()));
+        if (passCodeA.getText().length() >= 16) {
+            passCodeA.setForeground(Color.red);
+        } else {
+            passCodeA.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_passCodeACaretUpdate
+
+    private void passCodeBCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passCodeBCaretUpdate
+        passCodeBLength.setText(Integer.toString(passCodeB.getText().length()));
+        passCodeLengthTotal.setText(Integer.toString(passCodeA.getText().length() + passCodeB.getText().length()));
+        if (passCodeB.getText().length() >= 16) {
+            passCodeB.setForeground(Color.red);
+        } else {
+            passCodeB.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_passCodeBCaretUpdate
+
+    private void calcPassAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcPassAActionPerformed
+        // パスワード文字列の計算を呼び出し、表示
+        this.passCodeA.setText(
+                StructSheet.getPassCode(
+                        this.randomType.getSelectedItem().toString(),
+                        this.randomText.getText(),
+                        Integer.parseInt(this.passLength.getSelectedItem().toString()))
+        );
+    }//GEN-LAST:event_calcPassAActionPerformed
+
+    private void calcPassBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcPassBActionPerformed
+               // パスワード文字列の計算を呼び出し、表示
+        this.passCodeB.setText(
+                StructSheet.getPassCode(
+                        this.randomType.getSelectedItem().toString(),
+                        this.randomText.getText(),
+                        Integer.parseInt(this.passLength.getSelectedItem().toString()))
+        );
+    }//GEN-LAST:event_calcPassBActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
         try {
             /*
              // 保存ファイルの選択
@@ -322,65 +364,7 @@ public class NewJFrame extends javax.swing.JFrame {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_jButton1MouseClicked
-
-    private void calcPassAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcPassAMouseClicked
-        // パスワード文字列の計算を呼び出し、表示
-        this.passCodeA.setText(
-                StructSheet.getPassCode(
-                        this.randomType.getSelectedItem().toString(),
-                        this.randomText.getText(),
-                        Integer.parseInt(this.passLength.getSelectedItem().toString()))
-        );
-    }//GEN-LAST:event_calcPassAMouseClicked
-
-    private void calcPassBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcPassBMouseClicked
-        // パスワード文字列の計算を呼び出し、表示
-        this.passCodeB.setText(
-                StructSheet.getPassCode(
-                        this.randomType.getSelectedItem().toString(),
-                        this.randomText.getText(),
-                        Integer.parseInt(this.passLength.getSelectedItem().toString()))
-        );
-    }//GEN-LAST:event_calcPassBMouseClicked
-
-    private void randomTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_randomTypeItemStateChanged
-        passCodeA.setText(null);
-        passCodeB.setText(null);
-        if (randomType.getSelectedItem().toString().endsWith("Letters")) {
-            randomText.setEnabled(true);
-        } else {
-            randomText.setEnabled(false);
-        }
-    }//GEN-LAST:event_randomTypeItemStateChanged
-
-    private void passCodeACaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passCodeACaretUpdate
-        passCodeALength.setText(Integer.toString(passCodeA.getText().length()));
-        passCodeLengthTotal.setText(Integer.toString(passCodeA.getText().length() + passCodeB.getText().length()));
-        if (passCodeA.getText().length() >= 16) {
-            passCodeA.setForeground(Color.red);
-        } else {
-            passCodeA.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_passCodeACaretUpdate
-
-    private void passCodeBCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passCodeBCaretUpdate
-        passCodeBLength.setText(Integer.toString(passCodeB.getText().length()));
-        passCodeLengthTotal.setText(Integer.toString(passCodeA.getText().length() + passCodeB.getText().length()));
-        if (passCodeB.getText().length() >= 16) {
-            passCodeB.setForeground(Color.red);
-        } else {
-            passCodeB.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_passCodeBCaretUpdate
-
-    private void calcPassAKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calcPassAKeyTyped
-System.out.println("KeyTyped");        // TODO add your handling code here:
-    }//GEN-LAST:event_calcPassAKeyTyped
-
-    private void calcPassAKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calcPassAKeyReleased
-System.out.println("KeyReleased");        // TODO add your handling code here:
-    }//GEN-LAST:event_calcPassAKeyReleased
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
