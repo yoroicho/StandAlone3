@@ -143,8 +143,8 @@ public class NewJFrame extends javax.swing.JFrame {
         passCodeBLength.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         passCodeBLength.setText("0");
 
+        passCodeLengthTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         passCodeLengthTotal.setText("0");
-        passCodeLengthTotal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jLabel8.setText("符号合計");
 
@@ -184,8 +184,7 @@ public class NewJFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(passLength, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel12)
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jLabel12))
                                     .addComponent(userName)
                                     .addComponent(subTitle, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(url, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -214,23 +213,22 @@ public class NewJFrame extends javax.swing.JFrame {
                                             .addComponent(passCodeA))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(passCodeALength, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                                            .addComponent(passCodeLengthTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(5, 5, 5)
+                                            .addComponent(passCodeLengthTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                                            .addComponent(passCodeALength, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGap(7, 7, 7)
-                                                .addComponent(calcPassA))))
+                                                .addGap(12, 12, 12)
+                                                .addComponent(calcPassA))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addComponent(randomText, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -285,6 +283,7 @@ public class NewJFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void randomTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_randomTypeItemStateChanged
