@@ -109,6 +109,14 @@ public class NewJFrame extends javax.swing.JFrame {
                 calcPassAMouseClicked(evt);
             }
         });
+        calcPassA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                calcPassAKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                calcPassAKeyTyped(evt);
+            }
+        });
 
         passCodeB.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -365,6 +373,14 @@ public class NewJFrame extends javax.swing.JFrame {
             passCodeB.setForeground(Color.black);
         }
     }//GEN-LAST:event_passCodeBCaretUpdate
+
+    private void calcPassAKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calcPassAKeyTyped
+System.out.println("KeyTyped");        // TODO add your handling code here:
+    }//GEN-LAST:event_calcPassAKeyTyped
+
+    private void calcPassAKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calcPassAKeyReleased
+System.out.println("KeyReleased");        // TODO add your handling code here:
+    }//GEN-LAST:event_calcPassAKeyReleased
 
     /**
      * @param args the command line arguments
