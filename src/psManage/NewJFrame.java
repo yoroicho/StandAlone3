@@ -377,13 +377,20 @@ public class NewJFrame extends javax.swing.JFrame {
             File file = new File(this.fileDir);
             Desktop desktop = Desktop.getDesktop();
             Thread.sleep(2000);
-            //desktop.open(file);
-            desktop.print(file);
+            desktop.open(file);
+            //desktop.print(file);
             Thread.sleep(7000);
-            file.delete();
+            System.out.println("これからファイルを削除します");
+            
+            if(file.delete()){
+                System.out.println("ファイルを削除しました");
+            }else{
+                System.out.println("ファイルの削除ができません");
+            };
 
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            
         } catch (InterruptedException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
