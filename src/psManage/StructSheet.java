@@ -89,7 +89,7 @@ public class StructSheet {
             String passCodeA,
             String passCodeB,
             String fileDir
-    ) throws IOException, DocumentException {
+    ) throws IOException, DocumentException ,RuntimeException{
         // step 1
         Document document = new Document(PageSize.A4, 60, 50, 50, 35);
         // step 2

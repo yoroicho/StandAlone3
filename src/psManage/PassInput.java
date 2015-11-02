@@ -16,7 +16,6 @@ import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.text.DefaultEditorKit;
 
-
 /**
  *
  * @author 00499
@@ -27,7 +26,6 @@ public class PassInput extends javax.swing.JFrame {
     Action pasteAction = new DefaultEditorKit.PasteAction();
     Action copyAction = new DefaultEditorKit.CopyAction();
     Action cutAction = new DefaultEditorKit.CutAction();
-
 
     /**
      * Creates new form NewJFrame
@@ -76,6 +74,7 @@ public class PassInput extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        isOnlyOpen = new javax.swing.JCheckBox();
 
         pasteAction.putValue(Action.NAME,"貼付");
         popupUti.add(pasteAction);
@@ -212,71 +211,77 @@ public class PassInput extends javax.swing.JFrame {
 
         jLabel13.setText("摘　　要");
 
+        isOnlyOpen.setText("表示のみ");
+        isOnlyOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isOnlyOpenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(randomType, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(passLength, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12))
+                            .addComponent(userName)
+                            .addComponent(subTitle, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(url, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(mainTitle, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(isOnlyOpen))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(commentScrollPane)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(passCodeB)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(passCodeBLength, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(calcPassB))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel8))
+                                    .addComponent(passCodeA))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(passCodeLengthTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                                    .addComponent(passCodeALength, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(randomType, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(calcPassA))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(passLength, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel12))
-                                    .addComponent(userName)
-                                    .addComponent(subTitle, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(url, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(mainTitle, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(commentScrollPane)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(passCodeB)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(passCodeBLength, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(calcPassB))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(jLabel8))
-                                            .addComponent(passCodeA))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(passCodeLengthTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                                            .addComponent(passCodeALength, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(12, 12, 12)
-                                                .addComponent(calcPassA))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(randomText, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))))))
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(randomText, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -332,7 +337,9 @@ public class PassInput extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addComponent(jLabel13)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(isOnlyOpen))
                 .addContainerGap())
         );
 
@@ -424,15 +431,29 @@ public class PassInput extends javax.swing.JFrame {
                         this.fileDir);
             } catch (IOException ex) {
                 Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("a");
+
             } catch (DocumentException ex) {
                 Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("B");
+            } catch (RuntimeException ex) {
+                Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("RuntimeException");
+                NotCreateFile notCreateFile = new NotCreateFile(null, true);
+                notCreateFile.appendJTextArea("システムを終了します");
+                notCreateFile.appendJTextArea(ex.toString());
+                notCreateFile.setVisible(true);
+                System.exit(0);
             }
 
             File file = new File(this.fileDir);
             Desktop desktop = Desktop.getDesktop();
             Thread.sleep(2000);
-            desktop.open(file);
-            //desktop.print(file);
+            if (this.isOnlyOpen.isSelected()) {
+                desktop.open(file);
+            } else {
+                desktop.print(file);
+            }
             Thread.sleep(7000);
             System.out.println("これからファイルを削除します");
 
@@ -445,9 +466,10 @@ public class PassInput extends javax.swing.JFrame {
 
         } catch (IOException ex) {
             Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
-
+            System.out.println("c");
         } catch (InterruptedException ex) {
             Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("D");
         }
 
 
@@ -460,53 +482,59 @@ public class PassInput extends javax.swing.JFrame {
     }//GEN-LAST:event_mainTitleMousePressed
 
     private void subTitleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subTitleMousePressed
-                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
             popupUti.show(this.subTitle, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_subTitleMousePressed
 
     private void urlMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_urlMousePressed
-             if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
             popupUti.show(this.url, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_urlMousePressed
 
     private void userNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userNameMousePressed
-               if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
             popupUti.show(this.userName, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_userNameMousePressed
 
     private void passCodeAMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passCodeAMousePressed
-                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
             popupUti.show(this.passCodeA, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_passCodeAMousePressed
 
     private void passCodeBMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passCodeBMousePressed
-                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
             popupUti.show(this.passCodeB, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_passCodeBMousePressed
 
     private void commentMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentMousePressed
-                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
             popupUti.show(this.comment, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_commentMousePressed
+
+    private void isOnlyOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOnlyOpenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_isOnlyOpenActionPerformed
 
     private static void delTempFile(File file) {
         FileNotDelete fileNotDelete;
         fileNotDelete = new FileNotDelete(null, true);
         fileNotDelete.setVisible(true);
         System.out.println("これからファイルを削除します");
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("ファイルを削除しました");
+            } else {
+                System.out.println("ファイルの削除ができません");
+                delTempFile(file);
+            }
+        }
 
-        if (file.delete()) {
-            System.out.println("ファイルを削除しました");
-        } else {
-            System.out.println("ファイルの削除ができません");
-            delTempFile(file);
-        };
     }
 
     /**
@@ -551,6 +579,7 @@ public class PassInput extends javax.swing.JFrame {
     private javax.swing.JButton calcPassB;
     private javax.swing.JTextArea comment;
     private javax.swing.JScrollPane commentScrollPane;
+    private javax.swing.JCheckBox isOnlyOpen;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
