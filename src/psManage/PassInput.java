@@ -9,7 +9,9 @@ import com.itextpdf.text.DocumentException;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Action;
@@ -421,11 +423,20 @@ public class PassInput extends javax.swing.JFrame {
              }
             
              */
-            fileDir = "temp.pdf"; //残さないことを前提とする場合。
+/*
+            Properties props = new Properties();
+String jarPath = System.getProperty("java.class.path");
+String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
+//props.load(new FileInputStream(dirPath + "temp.pdf"));
 
+StructSheet structSheet = new StructSheet();
+            fileDir = dirPath+"temp.pdf"; //残さないことを前提とする場合。
+*/
+  fileDir="temp.pdf";          
+  StructSheet structSheet = new StructSheet();
             try {
                 // 作成開始:
-                StructSheet.createPdf(
+                structSheet.createPdf(
                         this.mainTitle.getText(),
                         this.subTitle.getText(),
                         this.url.getText(),

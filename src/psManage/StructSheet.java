@@ -20,6 +20,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -79,7 +80,7 @@ public class StructSheet {
         return "";
     }
 
-    public static void createPdf(
+    public  void createPdf(
             String mainTitle,
             String subTitle,
             String url,
@@ -90,6 +91,7 @@ public class StructSheet {
             String passCodeA,
             String passCodeB,
             String fileDir
+          
     ) throws IOException, DocumentException, RuntimeException {
             Document document = null;
         try {
