@@ -12,20 +12,27 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Action;
 import javax.swing.JFileChooser;
+import javax.swing.text.DefaultEditorKit;
+
 
 /**
  *
  * @author 00499
  */
-public class NewJFrame extends javax.swing.JFrame {
+public class PassInput extends javax.swing.JFrame {
 
     String fileDir;
+    Action pasteAction = new DefaultEditorKit.PasteAction();
+    Action copyAction = new DefaultEditorKit.CopyAction();
+    Action cutAction = new DefaultEditorKit.CutAction();
+
 
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public PassInput() {
         initComponents();
     }
 
@@ -38,6 +45,7 @@ public class NewJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupUti = new javax.swing.JPopupMenu();
         mainTitle = new javax.swing.JTextField();
         subTitle = new javax.swing.JTextField();
         url = new javax.swing.JTextField();
@@ -69,10 +77,46 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
 
+        pasteAction.putValue(Action.NAME,"貼付");
+        popupUti.add(pasteAction);
+        copyAction.putValue(Action.NAME,"コピー");
+        popupUti.add(copyAction);
+        cutAction.putValue(Action.NAME,"切取");
+        popupUti.add(cutAction);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mainTitle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                mainTitleMousePressed(evt);
+            }
+        });
+
+        subTitle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                subTitleMousePressed(evt);
+            }
+        });
+
+        url.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                urlMousePressed(evt);
+            }
+        });
+
+        userName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                userNameMousePressed(evt);
+            }
+        });
 
         comment.setColumns(20);
         comment.setRows(5);
+        comment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                commentMousePressed(evt);
+            }
+        });
         commentScrollPane.setViewportView(comment);
 
         randomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ascii", "Alphanumeric", "Alphabetic", "Numeric", "Letters" }));
@@ -84,8 +128,8 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         passLength.setEditable(true);
-        passLength.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", " " }));
-        passLength.setSelectedIndex(9);
+        passLength.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }));
+        passLength.setSelectedIndex(15);
 
         randomText.setText("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$+-./:=?@[]^_`|");
         randomText.setEnabled(false);
@@ -93,6 +137,11 @@ public class NewJFrame extends javax.swing.JFrame {
         passCodeA.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 passCodeACaretUpdate(evt);
+            }
+        });
+        passCodeA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                passCodeAMousePressed(evt);
             }
         });
 
@@ -113,6 +162,11 @@ public class NewJFrame extends javax.swing.JFrame {
         passCodeB.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 passCodeBCaretUpdate(evt);
+            }
+        });
+        passCodeB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                passCodeBMousePressed(evt);
             }
         });
 
@@ -299,7 +353,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void passCodeACaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passCodeACaretUpdate
         passCodeALength.setText(Integer.toString(passCodeA.getText().length()));
         passCodeLengthTotal.setText(Integer.toString(passCodeA.getText().length() + passCodeB.getText().length()));
-        if (passCodeA.getText().length() >= 16) {
+        if (passCodeA.getText().length() >= 17) {
             passCodeA.setForeground(Color.red);
         } else {
             passCodeA.setForeground(Color.black);
@@ -309,7 +363,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void passCodeBCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passCodeBCaretUpdate
         passCodeBLength.setText(Integer.toString(passCodeB.getText().length()));
         passCodeLengthTotal.setText(Integer.toString(passCodeA.getText().length() + passCodeB.getText().length()));
-        if (passCodeB.getText().length() >= 16) {
+        if (passCodeB.getText().length() >= 17) {
             passCodeB.setForeground(Color.red);
         } else {
             passCodeB.setForeground(Color.black);
@@ -327,7 +381,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_calcPassAActionPerformed
 
     private void calcPassBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcPassBActionPerformed
-               // パスワード文字列の計算を呼び出し、表示
+        // パスワード文字列の計算を呼び出し、表示
         this.passCodeB.setText(
                 StructSheet.getPassCode(
                         this.randomType.getSelectedItem().toString(),
@@ -337,7 +391,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_calcPassBActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
+
         try {
             /*
              // 保存ファイルの選択
@@ -369,9 +423,9 @@ public class NewJFrame extends javax.swing.JFrame {
                         this.passCodeB.getText(),
                         this.fileDir);
             } catch (IOException ex) {
-                Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
             } catch (DocumentException ex) {
-                Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             File file = new File(this.fileDir);
@@ -381,21 +435,79 @@ public class NewJFrame extends javax.swing.JFrame {
             //desktop.print(file);
             Thread.sleep(7000);
             System.out.println("これからファイルを削除します");
-            
-            if(file.delete()){
+
+            if (file.delete()) {
                 System.out.println("ファイルを削除しました");
-            }else{
+            } else {
                 System.out.println("ファイルの削除ができません");
+                delTempFile(file);
             };
 
         } catch (IOException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            
+            Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
+
         } catch (InterruptedException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void mainTitleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainTitleMousePressed
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            popupUti.show(this.mainTitle, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_mainTitleMousePressed
+
+    private void subTitleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subTitleMousePressed
+                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            popupUti.show(this.subTitle, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_subTitleMousePressed
+
+    private void urlMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_urlMousePressed
+             if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            popupUti.show(this.url, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_urlMousePressed
+
+    private void userNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userNameMousePressed
+               if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            popupUti.show(this.userName, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_userNameMousePressed
+
+    private void passCodeAMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passCodeAMousePressed
+                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            popupUti.show(this.passCodeA, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_passCodeAMousePressed
+
+    private void passCodeBMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passCodeBMousePressed
+                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            popupUti.show(this.passCodeB, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_passCodeBMousePressed
+
+    private void commentMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentMousePressed
+                if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            popupUti.show(this.comment, evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_commentMousePressed
+
+    private static void delTempFile(File file) {
+        FileNotDelete fileNotDelete;
+        fileNotDelete = new FileNotDelete(null, true);
+        fileNotDelete.setVisible(true);
+        System.out.println("これからファイルを削除します");
+
+        if (file.delete()) {
+            System.out.println("ファイルを削除しました");
+        } else {
+            System.out.println("ファイルの削除ができません");
+            delTempFile(file);
+        };
+    }
 
     /**
      * @param args the command line arguments
@@ -414,23 +526,25 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PassInput.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PassInput.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PassInput.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PassInput.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new PassInput().setVisible(true);
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton calcPassA;
@@ -458,6 +572,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel passCodeBLength;
     private javax.swing.JLabel passCodeLengthTotal;
     private javax.swing.JComboBox passLength;
+    private javax.swing.JPopupMenu popupUti;
     private javax.swing.JTextField randomText;
     private javax.swing.JComboBox randomType;
     private javax.swing.JTextField subTitle;
