@@ -398,7 +398,7 @@ public class PassInput extends javax.swing.JFrame {
     }//GEN-LAST:event_calcPassBActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        File file = null;
         try {
             /*
              // 保存ファイルの選択
@@ -440,13 +440,17 @@ public class PassInput extends javax.swing.JFrame {
                 Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("RuntimeException");
                 NotCreateFile notCreateFile = new NotCreateFile(null, true);
-                notCreateFile.appendJTextArea("システムを終了します");
                 notCreateFile.appendJTextArea(ex.toString());
                 notCreateFile.setVisible(true);
-                System.exit(0);
+                if (file.delete()) {
+                    System.out.println("ファイルを削除しました");
+                } else {
+                    System.out.println("ファイルの削除ができません");
+                    delTempFile(file);
+                };
             }
 
-            File file = new File(this.fileDir);
+            file = new File(this.fileDir);
             Desktop desktop = Desktop.getDesktop();
             Thread.sleep(2000);
             if (this.isOnlyOpen.isSelected()) {
