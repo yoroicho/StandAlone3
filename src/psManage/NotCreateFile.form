@@ -72,7 +72,6 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="&#x30d5;&#x30a1;&#x30a4;&#x30eb;&#x304c;&#x4f5c;&#x6210;&#x3067;&#x304d;&#x307e;&#x305b;&#x3093;"/>
           </Properties>
         </Component>
       </SubComponents>

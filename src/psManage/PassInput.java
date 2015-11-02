@@ -26,7 +26,7 @@ public class PassInput extends javax.swing.JFrame {
     Action pasteAction = new DefaultEditorKit.PasteAction();
     Action copyAction = new DefaultEditorKit.CopyAction();
     Action cutAction = new DefaultEditorKit.CutAction();
-
+        File file = null;
     /**
      * Creates new form NewJFrame
      */
@@ -84,6 +84,11 @@ public class PassInput extends javax.swing.JFrame {
         popupUti.add(cutAction);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         mainTitle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -398,7 +403,7 @@ public class PassInput extends javax.swing.JFrame {
     }//GEN-LAST:event_calcPassBActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        File file = null;
+
         try {
             /*
              // 保存ファイルの選択
@@ -449,15 +454,20 @@ public class PassInput extends javax.swing.JFrame {
                     delTempFile(file);
                 };
             }
-
+            //Thread.sleep(10000);
+            
+            NotCreateFile notCreateFile = new NotCreateFile(null,true);
+            notCreateFile.appendJTextArea("実行しますか");
+            notCreateFile.setVisible(true);
             file = new File(this.fileDir);
             Desktop desktop = Desktop.getDesktop();
-            Thread.sleep(2000);
+
             if (this.isOnlyOpen.isSelected()) {
                 desktop.open(file);
             } else {
-                desktop.print(file);
+               desktop.print(file);
             }
+            /*
             Thread.sleep(7000);
             System.out.println("これからファイルを削除します");
 
@@ -465,15 +475,12 @@ public class PassInput extends javax.swing.JFrame {
                 System.out.println("ファイルを削除しました");
             } else {
                 System.out.println("ファイルの削除ができません");
-                delTempFile(file);
+                //delTempFile(file);
             };
-
+*/
         } catch (IOException ex) {
             Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("c");
-        } catch (InterruptedException ex) {
-            Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("D");
         }
 
 
@@ -524,6 +531,10 @@ public class PassInput extends javax.swing.JFrame {
     private void isOnlyOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOnlyOpenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_isOnlyOpenActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        delTempFile(file);
+    }//GEN-LAST:event_formWindowClosing
 
     private static void delTempFile(File file) {
         FileNotDelete fileNotDelete;

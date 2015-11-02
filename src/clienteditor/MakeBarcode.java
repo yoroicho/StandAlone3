@@ -7,6 +7,15 @@ package clienteditor;
 
 
  
+import com.itextpdf.text.pdf.Barcode;
+import com.itextpdf.text.pdf.Barcode128;
+import com.itextpdf.text.pdf.Barcode39;
+import com.itextpdf.text.pdf.BarcodeCodabar;
+import com.itextpdf.text.pdf.BarcodeDatamatrix;
+import com.itextpdf.text.pdf.BarcodeEAN;
+import com.itextpdf.text.pdf.BarcodeInter25;
+import com.itextpdf.text.pdf.BarcodePDF417;
+import com.itextpdf.text.pdf.BarcodePostnet;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,15 +26,7 @@ import java.io.UnsupportedEncodingException;
  
 import javax.imageio.ImageIO;
  
-import com.lowagie.text.pdf.Barcode;
-import com.lowagie.text.pdf.Barcode128;
-import com.lowagie.text.pdf.Barcode39;
-import com.lowagie.text.pdf.BarcodeCodabar;
-import com.lowagie.text.pdf.BarcodeDatamatrix;
-import com.lowagie.text.pdf.BarcodeEAN;
-import com.lowagie.text.pdf.BarcodeInter25;
-import com.lowagie.text.pdf.BarcodePDF417;
-import com.lowagie.text.pdf.BarcodePostnet;
+
  
 public class MakeBarcode {
  private static final Color COLOR_FORE = Color.BLACK;
