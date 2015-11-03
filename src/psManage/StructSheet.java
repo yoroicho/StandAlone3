@@ -9,6 +9,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.Barcode128;
@@ -18,11 +19,14 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Properties;
 import org.apache.commons.lang3.RandomStringUtils;
 
 /**
@@ -103,8 +107,26 @@ public class StructSheet {
             document.open();
             // step 4
             PdfContentByte cb = writer.getDirectContent();
+/*
+                        Properties props = new Properties();
+String jarPath = System.getProperty("java.class.path");
+String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
+            FontFactory.registerDirectory("/res");
+            FontFactory.register("ipag.ttf");
+Font ipaGothic = FontFactory.getFont("ipag", BaseFont.IDENTITY_H, 
+    BaseFont.EMBEDDED, 10); //10 is the size
 
-            Font ipaGothic = new Font(BaseFont.createFont("ipag.ttf",
+            InputStream is = getClass().getResourceAsStream("/res/ipag.ttf");
+        */    
+            
+                                    Properties props = new Properties();
+String jarPath = System.getProperty("java.class.path");
+String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
+System.out.println(jarPath);
+System.out.println(dirPath);
+System.out.println(System.getProperty("user.dir"));
+            
+            Font ipaGothic = new Font(BaseFont.createFont(System.getProperty("user.dir")+"\\res\\ipag.ttf",
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
 
             //表を作成(2列)

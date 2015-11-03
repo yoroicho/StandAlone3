@@ -468,7 +468,7 @@ StructSheet structSheet = new StructSheet();
             //Thread.sleep(10000);
             
             NotCreateFile notCreateFile = new NotCreateFile(null,true);
-            notCreateFile.appendJTextArea("実行しますか");
+            notCreateFile.appendJTextArea((System.getProperty("user.dir"))+"実行しますか");
             notCreateFile.setVisible(true);
             file = new File(this.fileDir);
             Desktop desktop = Desktop.getDesktop();
