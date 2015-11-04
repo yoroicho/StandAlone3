@@ -77,7 +77,6 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
                           <Component id="commentScrollPane" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="passCodeB" max="32767" attributes="0"/>
@@ -110,7 +109,12 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Component id="randomText" pref="548" max="32767" attributes="0"/>
+                          <Component id="randomText" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="doAllClera" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jButton1" min="-2" pref="478" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -185,6 +189,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="isOnlyOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="doAllClera" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -209,6 +214,8 @@
     </Component>
     <Component class="javax.swing.JTextField" name="userName">
       <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="userNameCaretUpdate"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="userNameFocusLost"/>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="userNameMousePressed"/>
       </Events>
     </Component>
@@ -408,6 +415,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isOnlyOpenActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="doAllClera">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x5168;&#x6d88;&#x53bb;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doAllCleraActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -29,6 +29,7 @@ public class PassInput extends javax.swing.JFrame {
     Action copyAction = new DefaultEditorKit.CopyAction();
     Action cutAction = new DefaultEditorKit.CutAction();
     File file = null;
+    String userNameTextBuf = "";
 
     /**
      * Creates new form NewJFrame
@@ -78,6 +79,7 @@ public class PassInput extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         isOnlyOpen = new javax.swing.JCheckBox();
+        doAllClera = new javax.swing.JButton();
 
         pasteAction.putValue(Action.NAME,"貼付");
         popupUti.add(pasteAction);
@@ -111,6 +113,16 @@ public class PassInput extends javax.swing.JFrame {
             }
         });
 
+        userName.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                userNameCaretUpdate(evt);
+            }
+        });
+        userName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                userNameFocusLost(evt);
+            }
+        });
         userName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 userNameMousePressed(evt);
@@ -226,6 +238,13 @@ public class PassInput extends javax.swing.JFrame {
             }
         });
 
+        doAllClera.setText("全消去");
+        doAllClera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doAllCleraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -264,7 +283,6 @@ public class PassInput extends javax.swing.JFrame {
                             .addComponent(isOnlyOpen))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(commentScrollPane)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(passCodeB)
@@ -289,7 +307,11 @@ public class PassInput extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(randomText, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE))))
+                            .addComponent(randomText)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(doAllClera)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -347,7 +369,8 @@ public class PassInput extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(isOnlyOpen))
+                    .addComponent(isOnlyOpen)
+                    .addComponent(doAllClera))
                 .addContainerGap())
         );
 
@@ -503,42 +526,49 @@ public class PassInput extends javax.swing.JFrame {
 
     private void mainTitleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainTitleMousePressed
         if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            mainTitle.requestFocusInWindow();
             popupUti.show(this.mainTitle, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_mainTitleMousePressed
 
     private void subTitleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subTitleMousePressed
         if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            subTitle.requestFocusInWindow();
             popupUti.show(this.subTitle, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_subTitleMousePressed
 
     private void urlMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_urlMousePressed
         if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            url.requestFocusInWindow();
             popupUti.show(this.url, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_urlMousePressed
 
     private void userNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userNameMousePressed
         if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            userName.requestFocusInWindow();
             popupUti.show(this.userName, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_userNameMousePressed
 
     private void passCodeAMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passCodeAMousePressed
         if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            passCodeA.requestFocusInWindow();
             popupUti.show(this.passCodeA, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_passCodeAMousePressed
 
     private void passCodeBMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passCodeBMousePressed
         if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            passCodeB.requestFocusInWindow();
             popupUti.show(this.passCodeB, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_passCodeBMousePressed
 
     private void commentMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentMousePressed
         if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            comment.requestFocusInWindow();
             popupUti.show(this.comment, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_commentMousePressed
@@ -551,29 +581,67 @@ public class PassInput extends javax.swing.JFrame {
         delTempFile(file);
     }//GEN-LAST:event_formWindowClosing
 
-    private static void delTempFile(File file) {
-try{
-        System.out.println("これからファイルを削除します");
-        if (file.exists()) {
-            if (file.delete()) {
-                System.out.println("ファイルを削除しました");
-            } else {
-                System.out.println("ファイルの削除ができません");
-                FileNotDelete fileNotDelete;
-                fileNotDelete = new FileNotDelete(null, true);
-                fileNotDelete.setVisible(true);
-                delTempFile(file);
-            }
-        } else {
-            return;
-        }
-        }catch(NullPointerException ex){
-                System.out.println("exsist失敗");
-                System.out.println(ex.toString());
-                }
+    private void userNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_userNameCaretUpdate
 
-    
+
+    }//GEN-LAST:event_userNameCaretUpdate
+
+    private void userNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userNameFocusLost
+        if (!userName.getText().isEmpty()) { // USERに文字が入っている
+            if (!userNameTextBuf.equals(userName.getText())) { // 文字が変更されている
+                if (!passCodeA.getText().isEmpty() || !passCodeB.getText().isEmpty()) { // かつどちらかの符号が設定されている
+                    String crlf = System.getProperty("line.separator"); //OSごとの改行記号の取得     
+                    OkCancelDialog okCancelDialog = new OkCancelDialog(this, true);
+                    okCancelDialog.setMessage("USERが変更されました。" + crlf + "符号をクリアします。");
+                    okCancelDialog.setVisible(true);
+                    if (okCancelDialog.getReturnStatus() == OkCancelDialog.RET_OK) {
+                        passCodeA.setText(null);
+                        passCodeB.setText(null);
+                    } else {
+                        //userNameTextBuf = userName.getText(); // キャンセルすると変更リセット                
+                    }
+                }
+            }
+            userNameTextBuf = userName.getText();
+        }
+    }//GEN-LAST:event_userNameFocusLost
+
+    private void doAllCleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doAllCleraActionPerformed
+        this.mainTitle.setText(null);
+        this.subTitle.setText(null);
+        this.url.setText(null);
+        this.userName.setText(null);
+        this.passCodeA.setText(null);
+        this.passCodeB.setText(null);
+        this.comment.setText(null);
+        this.randomType.setSelectedIndex(1);
+        this.passLength.setSelectedIndex(15);
+        this.randomText.setText("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$+-./:=?@[]^_`|");
+    }//GEN-LAST:event_doAllCleraActionPerformed
+
+    private static void delTempFile(File file) {
+        try {
+            System.out.println("これからファイルを削除します");
+            if (file.exists()) {
+                if (file.delete()) {
+                    System.out.println("ファイルを削除しました");
+                } else {
+                    System.out.println("ファイルの削除ができません");
+                    FileNotDelete fileNotDelete;
+                    fileNotDelete = new FileNotDelete(null, true);
+                    fileNotDelete.setVisible(true);
+                    delTempFile(file);
+                }
+            } else {
+                return;
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("exsist失敗");
+            System.out.println(ex.toString());
+        }
+
     }
+
     /**
      * @param args the command line arguments
      */
@@ -616,6 +684,7 @@ try{
     private javax.swing.JButton calcPassB;
     private javax.swing.JTextArea comment;
     private javax.swing.JScrollPane commentScrollPane;
+    private javax.swing.JButton doAllClera;
     private javax.swing.JCheckBox isOnlyOpen;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
