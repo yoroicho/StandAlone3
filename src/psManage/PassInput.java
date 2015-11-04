@@ -28,7 +28,8 @@ public class PassInput extends javax.swing.JFrame {
     Action pasteAction = new DefaultEditorKit.PasteAction();
     Action copyAction = new DefaultEditorKit.CopyAction();
     Action cutAction = new DefaultEditorKit.CutAction();
-        File file = null;
+    File file = null;
+
     /**
      * Creates new form NewJFrame
      */
@@ -423,17 +424,17 @@ public class PassInput extends javax.swing.JFrame {
              }
             
              */
-/*
-            Properties props = new Properties();
-String jarPath = System.getProperty("java.class.path");
-String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
-//props.load(new FileInputStream(dirPath + "temp.pdf"));
+            /*
+             Properties props = new Properties();
+             String jarPath = System.getProperty("java.class.path");
+             String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
+             //props.load(new FileInputStream(dirPath + "temp.pdf"));
 
-StructSheet structSheet = new StructSheet();
-            fileDir = dirPath+"temp.pdf"; //残さないことを前提とする場合。
-*/
-  fileDir="temp.pdf";          
-  StructSheet structSheet = new StructSheet();
+             StructSheet structSheet = new StructSheet();
+             fileDir = dirPath+"temp.pdf"; //残さないことを前提とする場合。
+             */
+            fileDir = "temp.pdf";
+            StructSheet structSheet = new StructSheet();
             try {
                 // 作成開始:
                 structSheet.createPdf(
@@ -463,35 +464,38 @@ StructSheet structSheet = new StructSheet();
                 } else {
                     System.out.println("ファイルの削除ができません");
                     delTempFile(file);
-                };
+                }
             }
             //Thread.sleep(10000);
-            
-            NotCreateFile notCreateFile = new NotCreateFile(null,true);
-            notCreateFile.appendJTextArea((System.getProperty("user.dir"))+"実行しますか");
-            notCreateFile.setVisible(true);
+
             file = new File(this.fileDir);
             Desktop desktop = Desktop.getDesktop();
 
             if (this.isOnlyOpen.isSelected()) {
                 desktop.open(file);
             } else {
-               desktop.print(file);
+                desktop.print(file);
             }
-            /*
-            Thread.sleep(7000);
+            NotCreateFile notCreateFile = new NotCreateFile(null, true);
+            notCreateFile.appendJTextArea("印刷もしくは表示の終了後、OKボタンを押して下さい。"
+                    + (System.getProperty("user.dir")) + "\\temp.pdf を削除します。");
+            notCreateFile.setVisible(true);
+
+            Thread.sleep(500);
             System.out.println("これからファイルを削除します");
 
             if (file.delete()) {
                 System.out.println("ファイルを削除しました");
             } else {
                 System.out.println("ファイルの削除ができません");
-                //delTempFile(file);
+                delTempFile(file);
             };
-*/
+
         } catch (IOException ex) {
             Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("c");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -548,21 +552,28 @@ StructSheet structSheet = new StructSheet();
     }//GEN-LAST:event_formWindowClosing
 
     private static void delTempFile(File file) {
-        FileNotDelete fileNotDelete;
-        fileNotDelete = new FileNotDelete(null, true);
-        fileNotDelete.setVisible(true);
+try{
         System.out.println("これからファイルを削除します");
         if (file.exists()) {
             if (file.delete()) {
                 System.out.println("ファイルを削除しました");
             } else {
                 System.out.println("ファイルの削除ができません");
+                FileNotDelete fileNotDelete;
+                fileNotDelete = new FileNotDelete(null, true);
+                fileNotDelete.setVisible(true);
                 delTempFile(file);
             }
+        } else {
+            return;
         }
+        }catch(NullPointerException ex){
+                System.out.println("exsist失敗");
+                System.out.println(ex.toString());
+                }
 
+    
     }
-
     /**
      * @param args the command line arguments
      */
