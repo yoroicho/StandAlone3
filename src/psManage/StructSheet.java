@@ -19,6 +19,7 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,7 +48,6 @@ public class StructSheet {
     private int passLength; // ひとつあたりの文字数
     private String passCodeA; // 
     private String passCodeB; // 
-
 
     /**
      *
@@ -84,7 +84,7 @@ public class StructSheet {
         return "";
     }
 
-    public  void createPdf(
+    public void createPdf(
             String mainTitle,
             String subTitle,
             String url,
@@ -95,9 +95,8 @@ public class StructSheet {
             String passCodeA,
             String passCodeB,
             String fileDir
-          
     ) throws IOException, DocumentException, RuntimeException {
-            Document document = null;
+        Document document = null;
         try {
             // step 1
             document = new Document(PageSize.A4, 60, 50, 50, 35);
@@ -107,26 +106,26 @@ public class StructSheet {
             document.open();
             // step 4
             PdfContentByte cb = writer.getDirectContent();
-/*
-                        Properties props = new Properties();
-String jarPath = System.getProperty("java.class.path");
-String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
-            FontFactory.registerDirectory("/res");
-            FontFactory.register("ipag.ttf");
-Font ipaGothic = FontFactory.getFont("ipag", BaseFont.IDENTITY_H, 
-    BaseFont.EMBEDDED, 10); //10 is the size
+            /*
+             Properties props = new Properties();
+             String jarPath = System.getProperty("java.class.path");
+             String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
+             FontFactory.registerDirectory("/res");
+             FontFactory.register("ipag.ttf");
+             Font ipaGothic = FontFactory.getFont("ipag", BaseFont.IDENTITY_H, 
+             BaseFont.EMBEDDED, 10); //10 is the size
 
-            InputStream is = getClass().getResourceAsStream("/res/ipag.ttf");
-        */    
-            
-                                    Properties props = new Properties();
-String jarPath = System.getProperty("java.class.path");
-String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
-System.out.println(jarPath);
-System.out.println(dirPath);
-System.out.println(System.getProperty("user.dir"));
-            
-            Font ipaGothic = new Font(BaseFont.createFont(System.getProperty("user.dir")+"\\res\\ipag.ttf",
+             InputStream is = getClass().getResourceAsStream("/res/ipag.ttf");
+             */
+
+            Properties props = new Properties();
+            String jarPath = System.getProperty("java.class.path");
+            String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator) + 1);
+            System.out.println(jarPath);
+            System.out.println(dirPath);
+            System.out.println(System.getProperty("user.dir"));
+
+            Font ipaGothic = new Font(BaseFont.createFont(System.getProperty("user.dir") + "\\res\\ipag.ttf",
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
 
             //表を作成(2列)
@@ -174,12 +173,21 @@ System.out.println(System.getProperty("user.dir"));
             pdfPTable.addCell(cellUrlValue);
 
             if (url.length() != 0) {
-                BarcodeQRCode qr = new BarcodeQRCode(url, 50, 50, null);
-                PdfPCell cellUrlValueQr = new PdfPCell(qr.getImage());
-                cellUrlValueQr.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cellUrlValueQr.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cellUrlValueQr.setFixedHeight(80);
-                pdfPTable.addCell(cellUrlValueQr);
+                /* 日本語非対応
+                 BarcodeQRCode qr = new BarcodeQRCode(url, 50, 50, null);
+                 PdfPCell cellUrlValueQr = new PdfPCell(qr.getImage());
+                 cellUrlValueQr.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                 cellUrlValueQr.setHorizontalAlignment(Element.ALIGN_CENTER);
+                 cellUrlValueQr.setFixedHeight(80);
+                 pdfPTable.addCell(cellUrlValueQr);
+                 */
+                Image image = ZxingUti.getQRCode(url); // 日本語対応 SHIFT_JIS
+                com.itextpdf.text.Image iTextImage = com.itextpdf.text.Image.getInstance(image, null);
+                PdfPCell cell = new PdfPCell(iTextImage);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setFixedHeight(100);
+                pdfPTable.addCell(cell); // 日本語対応 SIFT_JIS
             } else {
                 PdfPCell cellUrlValueQr = new PdfPCell(new Paragraph("", ipaGothic));
                 cellUrlValueQr.setVerticalAlignment(Element.ALIGN_MIDDLE);

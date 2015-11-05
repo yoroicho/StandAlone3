@@ -80,6 +80,7 @@ public class PassInput extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         isOnlyOpen = new javax.swing.JCheckBox();
         doAllClera = new javax.swing.JButton();
+        noBarCodePrint = new javax.swing.JCheckBox();
 
         pasteAction.putValue(Action.NAME,"貼付");
         popupUti.add(pasteAction);
@@ -245,6 +246,8 @@ public class PassInput extends javax.swing.JFrame {
             }
         });
 
+        noBarCodePrint.setText("BCD不要");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,11 +310,14 @@ public class PassInput extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(randomText)
+                            .addComponent(randomText, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(noBarCodePrint)
+                                .addGap(18, 18, 18)
                                 .addComponent(doAllClera)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -370,7 +376,8 @@ public class PassInput extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(isOnlyOpen)
-                    .addComponent(doAllClera))
+                    .addComponent(doAllClera)
+                    .addComponent(noBarCodePrint))
                 .addContainerGap())
         );
 
@@ -617,6 +624,7 @@ public class PassInput extends javax.swing.JFrame {
         this.randomType.setSelectedIndex(1);
         this.passLength.setSelectedIndex(15);
         this.randomText.setText("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$+-./:=?@[]^_`|");
+        this.noBarCodePrint.setSelected(false);
     }//GEN-LAST:event_doAllCleraActionPerformed
 
     private static void delTempFile(File file) {
@@ -701,6 +709,7 @@ public class PassInput extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField mainTitle;
+    private javax.swing.JCheckBox noBarCodePrint;
     private javax.swing.JTextField passCodeA;
     private javax.swing.JLabel passCodeALength;
     private javax.swing.JTextField passCodeB;
