@@ -94,7 +94,8 @@ public class StructSheet {
             //String thisPassCode,
             String passCodeA,
             String passCodeB,
-            String fileDir
+            String fileDir,
+            Boolean noBarCodePrint
     ) throws IOException, DocumentException, RuntimeException {
         Document document = null;
         try {
@@ -172,7 +173,7 @@ public class StructSheet {
             cellUrlValue.setFixedHeight(50);
             pdfPTable.addCell(cellUrlValue);
 
-            if (url.length() != 0) {
+            if (url.length() != 0 && !noBarCodePrint) {
                 /* 日本語非対応
                  BarcodeQRCode qr = new BarcodeQRCode(url, 50, 50, null);
                  PdfPCell cellUrlValueQr = new PdfPCell(qr.getImage());
@@ -196,7 +197,7 @@ public class StructSheet {
                 pdfPTable.addCell(cellUrlValueQr);
             }
 
-            PdfPCell cellUserNameKey = new PdfPCell(new Paragraph("USER", ipaGothic));
+            PdfPCell cellUserNameKey = new PdfPCell(new Paragraph("ユーザ", ipaGothic));
             cellUserNameKey.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cellUserNameKey.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellUserNameKey.setRowspan(2);
@@ -208,7 +209,7 @@ public class StructSheet {
             cellUserNameValue.setFixedHeight(30);
             pdfPTable.addCell(cellUserNameValue);
 
-            if (userName.length() != 0) {
+            if (userName.length() != 0 && !noBarCodePrint) {
                 Barcode128 code128 = new Barcode128();
                 code128.setCode(userName);
                 code128.setFont(ipaGothic.getBaseFont());
@@ -238,7 +239,7 @@ public class StructSheet {
             cellPassCodeValue.setFixedHeight(30);
             pdfPTable.addCell(cellPassCodeValue);
 
-            if (passCodeA.length() != 0) {
+            if (passCodeA.length() != 0 && !noBarCodePrint) {
                 Barcode128 code128 = new Barcode128();
                 code128.setCode(passCodeA);
                 code128.setFont(ipaGothic.getBaseFont());
@@ -256,7 +257,7 @@ public class StructSheet {
                 pdfPTable.addCell(cellPassCodeA_Bc);
             }
 
-            if (passCodeB.length() != 0) {
+            if (passCodeB.length() != 0 && !noBarCodePrint) {
                 Barcode128 code128 = new Barcode128();
                 code128.setCode(passCodeB);
                 code128.setFont(ipaGothic.getBaseFont());

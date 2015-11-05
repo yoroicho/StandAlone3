@@ -475,7 +475,8 @@ public class PassInput extends javax.swing.JFrame {
                         this.comment.getText(),
                         this.passCodeA.getText(),
                         this.passCodeB.getText(),
-                        this.fileDir);
+                        this.fileDir,
+                        this.noBarCodePrint.isSelected());
             } catch (IOException ex) {
                 Logger.getLogger(PassInput.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("a");
