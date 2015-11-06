@@ -127,7 +127,7 @@ public class StructSheet {
             System.out.println(System.getProperty("user.dir"));
 
             Font ipaGothic = new Font(BaseFont.createFont(System.getProperty("user.dir") + "\\res\\ipag.ttf",
-                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 11);
 
             //表を作成(2列)
             PdfPTable pdfPTable = new PdfPTable(2);
