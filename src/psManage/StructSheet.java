@@ -128,6 +128,9 @@ public class StructSheet {
 
             Font ipaGothic = new Font(BaseFont.createFont(System.getProperty("user.dir") + "\\res\\ipag.ttf",
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 11);
+            
+            Font ipaGothic14 = new Font(BaseFont.createFont(System.getProperty("user.dir") + "\\res\\ipag.ttf",
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 14);
 
             //表を作成(2列)
             PdfPTable pdfPTable = new PdfPTable(2);
@@ -203,7 +206,7 @@ public class StructSheet {
             cellUserNameKey.setRowspan(2);
             pdfPTable.addCell(cellUserNameKey);
 
-            PdfPCell cellUserNameValue = new PdfPCell(new Paragraph(userName, ipaGothic));
+            PdfPCell cellUserNameValue = new PdfPCell(new Paragraph(userName, ipaGothic14));
             cellUserNameValue.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cellUserNameValue.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellUserNameValue.setFixedHeight(30);
@@ -233,7 +236,7 @@ public class StructSheet {
             cellPassCodeKey.setRowspan(3);
             pdfPTable.addCell(cellPassCodeKey);
 
-            PdfPCell cellPassCodeValue = new PdfPCell(new Paragraph(passCodeA + passCodeB, ipaGothic));
+            PdfPCell cellPassCodeValue = new PdfPCell(new Paragraph(passCodeA + passCodeB, ipaGothic14));
             cellPassCodeValue.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cellPassCodeValue.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellPassCodeValue.setFixedHeight(30);
