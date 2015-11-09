@@ -209,6 +209,12 @@ public class MakePdfFile {
             cellUrlValue.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellUrlValue.setFixedHeight(50);
             pdfPTable.addCell(cellUrlValue);
+            
+            
+            /* テスト中 */
+            cellUrlValue.getImage();
+            writer.getDirectContent().addImage(cellUrlValue.getImage(), passLength, passLength, passLength, passLength, passLength, passLength);
+            
 
             if (url.length() != 0 && !noBarCodePrint) {
                 /* 日本語非対応
