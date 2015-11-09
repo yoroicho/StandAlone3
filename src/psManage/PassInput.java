@@ -635,7 +635,7 @@ public class PassInput extends javax.swing.JFrame {
         if (!userName.getText().isEmpty()) { // USERに文字が入っている
             if (!userNameTextBuf.equals(userName.getText())) { // 文字が変更されている
                 if (!passCodeA.getText().isEmpty() || !passCodeB.getText().isEmpty()) { // かつどちらかの符号が設定されている
-                    String crlf = System.getProperty("line.separator"); //OSごとの改行記号の取得     
+                    // String crlf = System.getProperty("line.separator"); //OSごとの改行記号の取得     
                     OkCancelDialog okCancelDialog = new OkCancelDialog(this, true);
                     okCancelDialog.setMessage("USERが変更されました。" + crlf + "符号をクリアします。");
                     okCancelDialog.setVisible(true);
