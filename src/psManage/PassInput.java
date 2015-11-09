@@ -24,18 +24,49 @@ import javax.swing.text.DefaultEditorKit;
  */
 public class PassInput extends javax.swing.JFrame {
 
-    String fileDir;
+    String fileDir = "temp.pdf"; // ファイルの場所をダイアログで指定しない場合
     Action pasteAction = new DefaultEditorKit.PasteAction();
     Action copyAction = new DefaultEditorKit.CopyAction();
     Action cutAction = new DefaultEditorKit.CutAction();
     File file = null;
     String userNameTextBuf = "";
 
+    String crlf = System.getProperty("line.separator"); //OSごとの改行記号の取得
+
     /**
      * Creates new form NewJFrame
      */
     public PassInput() {
         initComponents();
+
+        OkCancelDialog okCancelDialog = new OkCancelDialog(null, true);
+        okCancelDialog.setMessage(
+                "　　　　　　　　　　注　意"
+                + crlf
+                + "このシステムは一時ファイルを作成します。"
+                + crlf
+                + "通常は処理の過程で削除されますが、実行中に"
+                + crlf
+                + "再起動や強制終了を行った際は下記を削除下さい。"
+                + crlf
+                + (System.getProperty("user.dir")) + "\\" + fileDir
+                + crlf
+                + "ファイルが残っていると情報漏洩の危険があります。");
+
+        okCancelDialog.setVisible(true);
+        if (okCancelDialog.getReturnStatus() == OkCancelDialog.RET_CANCEL) {
+            System.exit(0);
+        }
+
+        //http://osima.jp/blog/java-exit-handler.html
+        //プログラム終了時に”ある処理”を絶対に実行したい(Java)
+        Thread hook = new Thread() {
+            public void run() {
+                //終了処理(ctrl+c などで終了した場合でもファイルを削除)
+                delTempFile(file);
+            }
+        };
+        Runtime.getRuntime().addShutdownHook(hook);
     }
 
     /**
@@ -90,6 +121,7 @@ public class PassInput extends javax.swing.JFrame {
         popupUti.add(cutAction);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("情報記録表作成");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -490,6 +522,7 @@ public class PassInput extends javax.swing.JFrame {
                 NotCreateFile notCreateFile = new NotCreateFile(null, true);
                 notCreateFile.appendJTextArea(ex.toString());
                 notCreateFile.setVisible(true);
+
                 if (file.delete()) {
                     System.out.println("ファイルを削除しました");
                 } else {
@@ -507,11 +540,15 @@ public class PassInput extends javax.swing.JFrame {
             } else {
                 desktop.print(file);
             }
+            Thread.sleep(3000);
             NotCreateFile notCreateFile = new NotCreateFile(null, true);
             notCreateFile.appendJTextArea("印刷もしくは表示の終了後、OKボタンを押して下さい。"
-                    + (System.getProperty("user.dir")) + "\\temp.pdf を削除します。");
+                    + crlf + (System.getProperty("user.dir")) + "\\temp.pdf を削除します。");
             notCreateFile.setVisible(true);
-
+            if (notCreateFile.getReturnStatus() != NotCreateFile.RET_OK_AND_NO_CLEAR) {
+                // メインパネルを空にする。
+                this.doAllCleraActionPerformed(evt);
+            };
             Thread.sleep(500);
             System.out.println("これからファイルを削除します");
 
