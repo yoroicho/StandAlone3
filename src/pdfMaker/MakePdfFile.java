@@ -13,6 +13,8 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.BaseFont;
@@ -20,6 +22,7 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
 import java.awt.Image;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -85,42 +88,58 @@ public class MakePdfFile {
         return "";
     }
 
-    public void makePdfFile(String text1,String text2,String text3)
+    MakePdfFile(String text1, String text2, String text3)
             throws IOException, DocumentException, RuntimeException {
+
+        // 試験中
+        url = text1;
+
         Document document = null;
-       String fileDir = "TEST_MAT.pdf";
-            // step 1
-            document = new Document(PageSize.A4, 60, 50, 50, 35);
-            // step 2
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileDir));
-            // step 3
-            document.open();
-            // step 4
-            PdfContentByte cb = writer.getDirectContent();
-            /*
-             Properties props = new Properties();
-             String jarPath = System.getProperty("java.class.path");
-             String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator)+1);
-             FontFactory.registerDirectory("/res");
-             FontFactory.register("ipag.ttf");
-             Font ipaGothic = FontFactory.getFont("ipag", BaseFont.IDENTITY_H, 
-             BaseFont.EMBEDDED, 10); //10 is the size
+        String fileDir = "TEST_MAT.pdf";
+        // step 1
+        document = new Document(PageSize.A4, 20, 20, 20, 20);
+        // step 2
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileDir));
 
-             InputStream is = getClass().getResourceAsStream("/res/ipag.ttf");
-             */
+        // step 3
+        document.open();
+        // step 4
+        PdfContentByte cb = writer.getDirectContent();
 
-            Properties props = new Properties();
-            String jarPath = System.getProperty("java.class.path");
-            String dirPath = jarPath.substring(0, jarPath.lastIndexOf(File.separator) + 1);
-            System.out.println(jarPath);
-            System.out.println(dirPath);
-            System.out.println(System.getProperty("user.dir"));
 
-            Font ipaGothic = new Font(BaseFont.createFont(System.getProperty("user.dir") + "\\res\\ipag.ttf",
-                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 11);
+        
+        
+        
+        Image image = ZxingUti.getQRCode(url); // 日本語対応 SHIFT_JIS
+        com.itextpdf.text.Image iTextImage = com.itextpdf.text.Image.getInstance(image, null);
+
+        // http://d.hatena.ne.jp/MoonMtLab/20130920/1379626380
+        //Imageインスタンスの作成
+        com.itextpdf.text.Image img = iTextImage;
+
+        //表示位置の設定(※)
+        img.setAbsolutePosition(document.getPageSize().getWidth() - 30, document.getPageSize().getHeight() - 30);
+        System.out.println(document.getPageSize().getWidth());
+        System.out.println(document.getPageSize().getHeight());
+        //表示サイズの設定
+        img.scaleAbsolute(30, 30);
+
+        //PdfContentByteの取得
+        PdfContentByte pdfContentByte = writer.getDirectContent();
+
+        //文章に画像を追加する
+        pdfContentByte.addImage(img);
+
+        
+        /* 
+         writer.setEncryption("Hello".getBytes(), "World".getBytes(),
+         PdfWriter.ALLOW_SCREENREADERS, PdfWriter.STANDARD_ENCRYPTION_128);
+         //文章オブジェクト クローズ
+         */
+        document.close();
+
     }
-    
-    
+
     public void createPdf(
             String mainTitle,
             String subTitle,
@@ -209,12 +228,10 @@ public class MakePdfFile {
             cellUrlValue.setHorizontalAlignment(Element.ALIGN_CENTER);
             cellUrlValue.setFixedHeight(50);
             pdfPTable.addCell(cellUrlValue);
-            
-            
+
             /* テスト中 */
-            cellUrlValue.getImage();
-            writer.getDirectContent().addImage(cellUrlValue.getImage(), passLength, passLength, passLength, passLength, passLength, passLength);
-            
+            //cellUrlValue.getImage();
+            writer.getDirectContent().addImage(cellUrlValue.getImage(), 100, 100, 100, 100, 100, 100);
 
             if (url.length() != 0 && !noBarCodePrint) {
                 /* 日本語非対応

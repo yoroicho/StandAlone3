@@ -68,6 +68,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x5b9f;&#x3000;&#x884c;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="makePdfFileActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

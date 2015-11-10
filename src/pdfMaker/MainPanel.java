@@ -5,6 +5,11 @@
  */
 package pdfMaker;
 
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author 00499
@@ -41,6 +46,11 @@ public class MainPanel extends javax.swing.JFrame {
         jTextField3.setToolTipText("");
 
         makePdfFile.setText("実　行");
+        makePdfFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makePdfFileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,6 +79,21 @@ public class MainPanel extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void makePdfFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makePdfFileActionPerformed
+        try {
+            MakePdfFile makePdfFile = new MakePdfFile(jTextField1.getText(), jTextField2.getText(),jTextField3.getText());
+    
+        
+        } catch (IOException ex) {
+            Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RuntimeException ex) {
+            Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_makePdfFileActionPerformed
 
     /**
      * @param args the command line arguments
