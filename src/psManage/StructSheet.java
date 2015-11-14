@@ -5,6 +5,7 @@
  */
 package psManage;
 
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -128,7 +129,7 @@ public class StructSheet {
 
             Font ipaGothic = new Font(BaseFont.createFont(System.getProperty("user.dir") + "\\res\\ipag.ttf",
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 11);
-            
+
             Font ipaGothic14 = new Font(BaseFont.createFont(System.getProperty("user.dir") + "\\res\\ipag.ttf",
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 14);
 
@@ -171,8 +172,15 @@ public class StructSheet {
             pdfPTable.addCell(cellUrlKey);
 
             PdfPCell cellUrlValue = new PdfPCell(new Paragraph(url, ipaGothic));
+            Chunk chunk = new Chunk(url, ipaGothic); // このやりかたでしか組まれた文字列の長さが測れない
+            System.out.println("行の長さ"+chunk.getWidthPoint());
             cellUrlValue.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            cellUrlValue.setHorizontalAlignment(Element.ALIGN_CENTER);
+            if (chunk.getWidthPoint() > 410) { // 複数行になりそうな場合は左詰めで
+                cellUrlValue.setHorizontalAlignment(Element.ALIGN_LEFT);
+            } else {                 // そうでない場合は中央で
+                cellUrlValue.setHorizontalAlignment(Element.ALIGN_CENTER);
+            }
+
             cellUrlValue.setFixedHeight(50);
             pdfPTable.addCell(cellUrlValue);
 
