@@ -678,7 +678,8 @@ public class PassInput extends javax.swing.JFrame {
     }//GEN-LAST:event_doAllCleraActionPerformed
 
     private void jButtonStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStoreActionPerformed
-        // TODO add your handling code here:
+         EncryptionSaveOkCancelDialog dialog = new EncryptionSaveOkCancelDialog(this,true);
+         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonStoreActionPerformed
 
     private static void delTempFile(File file) {
