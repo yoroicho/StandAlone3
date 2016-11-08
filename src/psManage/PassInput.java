@@ -112,6 +112,7 @@ public class PassInput extends javax.swing.JFrame {
         isOnlyOpen = new javax.swing.JCheckBox();
         doAllClera = new javax.swing.JButton();
         noBarCodePrint = new javax.swing.JCheckBox();
+        jButtonStore = new javax.swing.JButton();
 
         pasteAction.putValue(Action.NAME,"貼付");
         popupUti.add(pasteAction);
@@ -280,6 +281,13 @@ public class PassInput extends javax.swing.JFrame {
 
         noBarCodePrint.setText("BCD不要");
 
+        jButtonStore.setText("保存");
+        jButtonStore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStoreActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -342,14 +350,17 @@ public class PassInput extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(randomText, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                            .addComponent(randomText, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 22, Short.MAX_VALUE)
                                 .addComponent(noBarCodePrint)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(doAllClera)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonStore, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -409,7 +420,8 @@ public class PassInput extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(isOnlyOpen)
                     .addComponent(doAllClera)
-                    .addComponent(noBarCodePrint))
+                    .addComponent(noBarCodePrint)
+                    .addComponent(jButtonStore))
                 .addContainerGap())
         );
 
@@ -665,6 +677,10 @@ public class PassInput extends javax.swing.JFrame {
         this.noBarCodePrint.setSelected(false);
     }//GEN-LAST:event_doAllCleraActionPerformed
 
+    private void jButtonStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStoreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonStoreActionPerformed
+
     private static void delTempFile(File file) {
         try {
             System.out.println("これからファイルを削除します");
@@ -733,6 +749,7 @@ public class PassInput extends javax.swing.JFrame {
     private javax.swing.JButton doAllClera;
     private javax.swing.JCheckBox isOnlyOpen;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonStore;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
