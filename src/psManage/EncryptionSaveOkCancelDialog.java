@@ -5,12 +5,17 @@
  */
 package psManage;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.KeyStroke;
 
 /**
@@ -18,6 +23,59 @@ import javax.swing.KeyStroke;
  * @author tokyo
  */
 public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
+
+public void setJTextFieldTagText(String tag){
+    jTextFieldTag.setText(tag);
+}
+
+    /**
+     * @param mainTitle the mainTitle to set
+     */
+    public void setMainTitle(String mainTitle) {
+        this.mainTitle = mainTitle;
+    }
+
+    /**
+     * @param subTitle the subTitle to set
+     */
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @param passCodeA the passCodeA to set
+     */
+    public void setPassCodeA(String passCodeA) {
+        this.passCodeA = passCodeA;
+    }
+
+    /**
+     * @param passCodeB the passCodeB to set
+     */
+    public void setPassCodeB(String passCodeB) {
+        this.passCodeB = passCodeB;
+    }
+
+    /**
+     * @param comment the comment to set
+     */
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     /**
      * A return status code - returned if Cancel button has been pressed
@@ -28,6 +86,16 @@ public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
 
+
+private String mainTitle;
+private String subTitle;
+private String url;
+private String userName;
+private String passCodeA;
+private String passCodeB;
+private String comment;
+    
+    
     /**
      * Creates new form EncryptionSaveOkCancelDialog
      */
@@ -69,7 +137,7 @@ public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
         jTextFieldTag = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaPreKey = new javax.swing.JTextArea();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -93,11 +161,29 @@ public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
 
         jLabel1.setText("TAG");
 
+        jTextFieldTag.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextFieldTagCaretUpdate(evt);
+            }
+        });
+        jTextFieldTag.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jTextFieldTagInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+        jTextFieldTag.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTextFieldTagPropertyChange(evt);
+            }
+        });
+
         jLabel2.setText("KEY");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextAreaPreKey.setColumns(20);
+        jTextAreaPreKey.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaPreKey);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,7 +236,12 @@ public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        doClose(RET_OK);
+    try {
+        CipherAES128 clipherAES128 = new CipherAES128(this.jTextAreaPreKey.getText(),this.comment);
+    } catch (Exception ex) {
+        Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        doClose(RET_CANCEL);
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -163,6 +254,23 @@ public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
+
+    private void jTextFieldTagInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextFieldTagInputMethodTextChanged
+
+    }//GEN-LAST:event_jTextFieldTagInputMethodTextChanged
+
+    private void jTextFieldTagPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextFieldTagPropertyChange
+
+    }//GEN-LAST:event_jTextFieldTagPropertyChange
+
+    private void jTextFieldTagCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldTagCaretUpdate
+                        System.out.println("Change");
+        if((jTextFieldTag.getText().length())>6){
+            jTextFieldTag.setBackground(Color.yellow);
+        }else{
+            jTextFieldTag.setBackground(Color.white);
+        }
+    }//GEN-LAST:event_jTextFieldTagCaretUpdate
     
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -217,7 +325,7 @@ public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextAreaPreKey;
     private javax.swing.JTextField jTextFieldTag;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables

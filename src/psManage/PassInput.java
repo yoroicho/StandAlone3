@@ -678,7 +678,26 @@ public class PassInput extends javax.swing.JFrame {
     }//GEN-LAST:event_doAllCleraActionPerformed
 
     private void jButtonStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStoreActionPerformed
-         EncryptionSaveOkCancelDialog dialog = new EncryptionSaveOkCancelDialog(this,true);
+         File file = null;
+        JFileChooser filechooser = new JFileChooser();
+int selected = filechooser.showSaveDialog(this);
+        if (selected == JFileChooser.APPROVE_OPTION){
+      file = filechooser.getSelectedFile();
+      System.out.println(file.getPath());
+    }else if (selected == JFileChooser.CANCEL_OPTION){
+      System.out.println("キャンセルされました");
+    }else if (selected == JFileChooser.ERROR_OPTION){
+      System.out.println("エラー又は取消しがありました");
+    }
+        EncryptionSaveOkCancelDialog dialog = new EncryptionSaveOkCancelDialog(this,true);
+dialog.setJTextFieldTagText(file.getName());
+         dialog.setMainTitle(this.mainTitle.getText());
+         dialog.setSubTitle(this.subTitle.getText());
+         dialog.setUrl(this.url.getText());
+         dialog.setUserName(this.userName.getText());
+         dialog.setPassCodeA(this.passCodeA.getText());
+         dialog.setPassCodeB(this.passCodeB.getText());
+         dialog.setComment(this.comment.getText());
          dialog.setVisible(true);
     }//GEN-LAST:event_jButtonStoreActionPerformed
 
