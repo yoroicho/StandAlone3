@@ -136,8 +136,8 @@ private String comment;
         jLabel1 = new javax.swing.JLabel();
         jTextFieldTag = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaPreKey = new javax.swing.JTextArea();
+        jTextFieldPreKey = new javax.swing.JTextField();
+        jButtonKeyGenerate = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -181,9 +181,18 @@ private String comment;
 
         jLabel2.setText("KEY");
 
-        jTextAreaPreKey.setColumns(20);
-        jTextAreaPreKey.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaPreKey);
+        jTextFieldPreKey.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextFieldPreKeyCaretUpdate(evt);
+            }
+        });
+
+        jButtonKeyGenerate.setText("KEY GENERATE");
+        jButtonKeyGenerate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonKeyGenerateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,8 +212,9 @@ private String comment;
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jTextFieldTag))))
+                            .addComponent(jTextFieldTag)
+                            .addComponent(jTextFieldPreKey)
+                            .addComponent(jButtonKeyGenerate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -218,12 +228,12 @@ private String comment;
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldTag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldPreKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonKeyGenerate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(okButton))
@@ -237,7 +247,7 @@ private String comment;
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
     try {
-        System.out.println(CipherAES128.encrypteCipherAES128(this.jTextAreaPreKey.getText(),this.comment));
+        System.out.println(CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),this.comment));
     } catch (Exception ex) {
         Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -271,6 +281,21 @@ private String comment;
             jTextFieldTag.setBackground(Color.white);
         }
     }//GEN-LAST:event_jTextFieldTagCaretUpdate
+
+    private void jButtonKeyGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKeyGenerateActionPerformed
+        jTextFieldPreKey.setText(
+        StructSheet.getPassCode("Ascii", null, 16)
+        );
+    }//GEN-LAST:event_jButtonKeyGenerateActionPerformed
+
+    private void jTextFieldPreKeyCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldPreKeyCaretUpdate
+        System.out.println("16check");
+        if(jTextFieldPreKey.getText().length()!=16){
+            this.okButton.setEnabled(false);
+        }else{
+            this.okButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTextFieldPreKeyCaretUpdate
     
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -322,10 +347,10 @@ private String comment;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JButton jButtonKeyGenerate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaPreKey;
+    private javax.swing.JTextField jTextFieldPreKey;
     private javax.swing.JTextField jTextFieldTag;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
