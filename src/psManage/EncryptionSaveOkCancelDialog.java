@@ -237,7 +237,7 @@ private String comment;
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
     try {
-        CipherAES128 clipherAES128 = new CipherAES128(this.jTextAreaPreKey.getText(),this.comment);
+        System.out.println(CipherAES128.encrypteCipherAES128(this.jTextAreaPreKey.getText(),this.comment));
     } catch (Exception ex) {
         Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
     }

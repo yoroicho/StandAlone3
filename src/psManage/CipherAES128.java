@@ -26,7 +26,7 @@ public class CipherAES128 {
     private static final int BLOCK_LENGTH = 128;  // ブロック長[bit]
 
     // In and out.
-    public CipherAES128(String preKeyStr,String plainText) throws Exception {
+    public static String encrypteCipherAES128(String preKeyStr,String plainText) throws Exception {
         // AES暗号オブジェクト・CBC用の初期ベクトルの作成
         Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
         IvParameterSpec iv = new IvParameterSpec(new byte[BLOCK_LENGTH / 8]);
@@ -42,12 +42,12 @@ public class CipherAES128 {
         Key key = new SecretKeySpec(keyStr, "AES");
 
         // 共通鍵
-        System.out.println(String.format("Key(hex)    : %s", toHexStr(key.getEncoded())));
+        //System.out.println(String.format("Key(hex)    : %s", toHexStr(key.getEncoded())));
 
         // 平文
         byte[] plain = plainText.getBytes();
         System.out.println(String.format("Plain       : %s", new String(plain)));
-        System.out.println(String.format("Plain(hex)  : %s", toHexStr(plain)));
+        //System.out.println(String.format("Plain(hex)  : %s", toHexStr(plain)));
 
         // 暗号文
         c.init(Cipher.ENCRYPT_MODE, key, iv);
@@ -56,7 +56,7 @@ public class CipherAES128 {
         String encryptedText = Base64.encode(encode);
         System.out.println(encryptedText);
         System.out.println(String.format("Encode      : %s", new String(encode)));
-        System.out.println(String.format("Encode(hex) : %s", toHexStr(encode)));
+        //System.out.println(String.format("Encode(hex) : %s", toHexStr(encode)));
 
         // 復号文
         
@@ -67,9 +67,9 @@ public class CipherAES128 {
         //byte[] decode = c.doFinal(encode);
         byte[] decode = c.doFinal(encrypted);
         System.out.println(String.format("Decode      : %s", new String(decode)));
-        System.out.println(String.format("Decode(hex) : %s", toHexStr(decode)));
+        //System.out.println(String.format("Decode(hex) : %s", toHexStr(decode)));
 
-        //return encryptedText;
+        return encryptedText;
     }
     
     /**
