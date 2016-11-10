@@ -690,6 +690,7 @@ public class PassInput extends javax.swing.JFrame {
             System.out.println("エラー又は取消しがありました");
         }
         EncryptionSaveOkCancelDialog dialog = new EncryptionSaveOkCancelDialog(this, true);
+        dialog.setFileXML(file);
         dialog.setJTextFieldTagText(file.getName());
         dialog.setMainTitle(this.mainTitle.getText());
         dialog.setSubTitle(this.subTitle.getText());

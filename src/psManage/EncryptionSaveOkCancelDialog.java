@@ -9,6 +9,13 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -23,6 +30,13 @@ import javax.swing.KeyStroke;
  * @author tokyo
  */
 public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
+
+    /**
+     * @param fileXML the fileXML to set
+     */
+    public void setFileXML(File fileXML) {
+        this.fileXML = fileXML;
+    }
 
 public void setJTextFieldTagText(String tag){
     jTextFieldTag.setText(tag);
@@ -95,7 +109,37 @@ private String passCodeA;
 private String passCodeB;
 private String comment;
     
-    
+private File fileXML;
+    /**
+     * Write to XML file on Encryption.
+     */
+    private void writeFile(){
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        String strDate = sdf.format(cal.getTime());
+        Properties prop = new Properties();
+    try {
+         prop.setProperty("tg",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),this.jTextFieldTag.getText()));
+        prop.setProperty("mt",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),mainTitle));
+        prop.setProperty("st",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),subTitle));
+        prop.setProperty("up",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),url));
+        prop.setProperty("un",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),userName));
+        prop.setProperty("pc",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),passCodeA+passCodeB));
+        prop.setProperty("ct",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),comment));
+        prop.setProperty("tm",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),strDate));
+        
+    } catch (Exception ex) {
+        Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    try (OutputStream os = new FileOutputStream(fileXML)) {
+            prop.storeToXML(os, "");
+        } catch (FileNotFoundException ex) {
+        Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+        Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
     /**
      * Creates new form EncryptionSaveOkCancelDialog
      */
@@ -243,11 +287,13 @@ private String comment;
         getRootPane().setDefaultButton(okButton);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
     try {
-        System.out.println(CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),this.comment));
+        System.out.println("Writeing");
+        writeFile();
     } catch (Exception ex) {
         Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
     }
