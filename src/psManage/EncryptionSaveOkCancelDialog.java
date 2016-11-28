@@ -38,9 +38,9 @@ public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
         this.fileXML = fileXML;
     }
 
-public void setJTextFieldTagText(String tag){
-    jTextFieldTag.setText(tag);
-}
+    public void setJTextFieldTagText(String tag) {
+        jTextFieldTag.setText(tag);
+    }
 
     /**
      * @param mainTitle the mainTitle to set
@@ -100,44 +100,44 @@ public void setJTextFieldTagText(String tag){
      */
     public static final int RET_OK = 1;
 
+    private String mainTitle;
+    private String subTitle;
+    private String url;
+    private String userName;
+    private String passCodeA;
+    private String passCodeB;
+    private String comment;
 
-private String mainTitle;
-private String subTitle;
-private String url;
-private String userName;
-private String passCodeA;
-private String passCodeB;
-private String comment;
-    
-private File fileXML;
+    private File fileXML;
+
     /**
      * Write to XML file on Encryption.
      */
-    private void writeFile(){
+    private void writeFile() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         String strDate = sdf.format(cal.getTime());
         Properties prop = new Properties();
-    try {
-         prop.setProperty("tg",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),this.jTextFieldTag.getText()));
-        prop.setProperty("mt",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),mainTitle));
-        prop.setProperty("st",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),subTitle));
-        prop.setProperty("up",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),url));
-        prop.setProperty("un",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),userName));
-        prop.setProperty("pc",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),passCodeA+passCodeB));
-        prop.setProperty("ct",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),comment));
-        prop.setProperty("tm",CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(),strDate));
-        
-    } catch (Exception ex) {
-        Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    try (OutputStream os = new FileOutputStream(fileXML)) {
+        try {
+            prop.setProperty("tg", CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(), this.jTextFieldTag.getText()));
+            prop.setProperty("mt", CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(), mainTitle));
+            prop.setProperty("st", CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(), subTitle));
+            prop.setProperty("up", CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(), url));
+            prop.setProperty("un", CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(), userName));
+            prop.setProperty("pc", CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(), passCodeA + passCodeB));
+            prop.setProperty("ct", CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(), comment));
+            prop.setProperty("tm", CipherAES128.encrypteCipherAES128(this.jTextFieldPreKey.getText(), strDate));
+
+        } catch (Exception ex) {
+            Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try (OutputStream os = new FileOutputStream(fileXML)) {
             prop.storeToXML(os, "");
         } catch (FileNotFoundException ex) {
-        Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
-        Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
-    }
+            Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -291,12 +291,12 @@ private File fileXML;
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-    try {
-        System.out.println("Writeing");
-        writeFile();
-    } catch (Exception ex) {
-        Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            System.out.println("Writeing");
+            writeFile();
+        } catch (Exception ex) {
+            Logger.getLogger(EncryptionSaveOkCancelDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         doClose(RET_CANCEL);
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -320,29 +320,29 @@ private File fileXML;
     }//GEN-LAST:event_jTextFieldTagPropertyChange
 
     private void jTextFieldTagCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldTagCaretUpdate
-                        System.out.println("Change");
-        if((jTextFieldTag.getText().length())>6){
+        System.out.println("Change");
+        if ((jTextFieldTag.getText().length()) > 6) {
             jTextFieldTag.setBackground(Color.yellow);
-        }else{
+        } else {
             jTextFieldTag.setBackground(Color.white);
         }
     }//GEN-LAST:event_jTextFieldTagCaretUpdate
 
     private void jButtonKeyGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKeyGenerateActionPerformed
         jTextFieldPreKey.setText(
-        StructSheet.getPassCode("Ascii", null, 16)
+                StructSheet.getPassCode("Ascii", null, 16)
         );
     }//GEN-LAST:event_jButtonKeyGenerateActionPerformed
 
     private void jTextFieldPreKeyCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldPreKeyCaretUpdate
         System.out.println("16check");
-        if(jTextFieldPreKey.getText().length()!=16){
+        if (jTextFieldPreKey.getText().length() != 16) {
             this.okButton.setEnabled(false);
-        }else{
+        } else {
             this.okButton.setEnabled(true);
         }
     }//GEN-LAST:event_jTextFieldPreKeyCaretUpdate
-    
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
