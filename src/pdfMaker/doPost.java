@@ -44,6 +44,8 @@ import javax.naming.NamingException;
  * @author 00499
  */
 public class doPost {
+    /**
+}
     protected void doIngPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	ByteArrayOutputStream bout = null;
@@ -192,4 +194,5 @@ public class doPost {
 
         public BookDAO() {
         }
+**/
     }

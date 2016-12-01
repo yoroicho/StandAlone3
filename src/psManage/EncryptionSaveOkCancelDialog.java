@@ -337,8 +337,10 @@ public class EncryptionSaveOkCancelDialog extends javax.swing.JDialog {
     private void jTextFieldPreKeyCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldPreKeyCaretUpdate
         System.out.println("16check");
         if (jTextFieldPreKey.getText().length() != 16) {
+            this.jTextFieldPreKey.setForeground(Color.red);
             this.okButton.setEnabled(false);
         } else {
+            this.jTextFieldPreKey.setForeground(Color.black);
             this.okButton.setEnabled(true);
         }
     }//GEN-LAST:event_jTextFieldPreKeyCaretUpdate
